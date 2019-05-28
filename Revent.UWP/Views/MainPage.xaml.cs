@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Revent.UWP.ViewModels;
-
+using Revent.UWP.Views.Dialogs;
 using Windows.UI.Xaml.Controls;
 
 namespace Revent.UWP.Views
@@ -13,6 +13,8 @@ namespace Revent.UWP.Views
         public MainPage()
         {
             InitializeComponent();
+            NewTemplateDialog temp = new NewTemplateDialog();
+            temp.ShowAsync();
         }
     }
 }
