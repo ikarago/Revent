@@ -26,8 +26,7 @@
                        BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}"
                        BorderThickness="0,0,0,1">
             <TextBlock Text="New template"
-                       FontWeight="Bold"
-                       Style="{ThemeResource TitleTextBlockStyle}"
+                       Style="{ThemeResource FluentHeaderTextStyle}"
                        RelativePanel.AlignVerticalCenterWithPanel="True"/>
             <Button Content="&#xE106;"
                     Background="Transparent"
@@ -36,7 +35,7 @@
                     Width="40"
                     CornerRadius="{StaticResource FluentButtonCorners}"
                     RelativePanel.AlignRightWithPanel="True"
-                    Command="{x:Bind CloseButtonCommand}">
+                    Command="{x:Bind CloseDialogCommand}">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Modifiers="None"
                                          Key="Escape" />
@@ -48,77 +47,220 @@
         <!-- Content -->
         <ScrollViewer Grid.Row="1"
                       MinHeight="160">
-            <Grid Padding="0,12,0,0">
-                <TextBlock Text="Stuff" />
+            <Grid Margin="{ThemeResource FormTextBoxMargin}"
+                  Padding="0,12,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                
+                <!-- 0 - Template Name -->
+                <Grid Grid.Row="0"
+                      Margin="{ThemeResource FormTextBoxMargin}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Text="&#xEA91;"
+                               Width="48"
+                               Style="{ThemeResource NewTemplateDialogIconStyle}"/>
+
+                    <TextBox Grid.Column="1"
+                             PlaceholderText="Template name"
+                             HorizontalAlignment="Stretch"
+                             Style="{ThemeResource FluentTextBoxStyle}"/>
+                </Grid>
+
+                <!-- 1 - Subject -->
+                <Grid Grid.Row="1"
+                      Margin="{ThemeResource FormTextBoxMargin}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Text="&#xE15F;"
+                               Width="48"
+                               Style="{ThemeResource NewTemplateDialogIconStyle}"/>
+
+                    <TextBox Grid.Column="1"
+                             PlaceholderText="Subject"
+                             HorizontalAlignment="Stretch"
+                             Style="{ThemeResource FluentTextBoxStyle}"/>
+                </Grid>
+
+                <!-- 2 - Location -->
+                <!-- #TODO Make this a AutoSuggestBox? -->
+                <Grid Grid.Row="2"
+                      Margin="{ThemeResource FormTextBoxMargin}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Text="&#xE7B7;"
+                               Width="48"
+                               Style="{ThemeResource NewTemplateDialogIconStyle}"/>
+
+                    <TextBox Grid.Column="1"
+                             PlaceholderText="Location"
+                             HorizontalAlignment="Stretch"
+                             Style="{ThemeResource FluentTextBoxStyle}"/>
+                </Grid>
+
+                <!-- 3 - Time -->
+                <Grid Grid.Row="3"
+                      Margin="{ThemeResource FormTextBoxMargin}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Text="&#xE121;"
+                               Width="48"
+                               Style="{ThemeResource NewTemplateDialogIconStyle}"/>
+
+                    <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               Margin="0,0,12,0"
+                               Text="Duration: " />
+
+                    <TextBox Grid.Column="2"
+                             PlaceholderText="30"
+                             HorizontalAlignment="Stretch"
+                             BorderThickness="1"
+                             Padding="12,6"
+                             MaxLength="3"
+                             Height="32"
+                             Width="48"
+                             CornerRadius="2,0,0,2"/>
+
+                    <ComboBox Grid.Column="3"
+                              SelectedIndex="0"
+                              BorderThickness="1"
+                              Height="32"
+                              MinWidth="128"
+                              CornerRadius="0,2,2,0">
+                        <ComboBoxItem Content="Minutes" />
+                        <ComboBoxItem Content="Hours" />
+                        <ComboBoxItem Content="All day" />
+                    </ComboBox>
+
+                    
+                </Grid>
+
+
+                <!-- LAST - Details -->
+                <Grid Grid.Row="4"
+                      Margin="{ThemeResource FormTextBoxMargin}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Text="&#xE104;"
+                               Width="48"
+                               Style="{ThemeResource NewTemplateDialogIconStyle}"/>
+
+                    <TextBox Grid.Column="1"
+                             PlaceholderText="Details"
+                             HorizontalAlignment="Stretch"
+                             AcceptsReturn="True"
+                             Style="{ThemeResource FluentTextBoxStyle}"/>
+                </Grid>
+
+
+
+
+
             </Grid>
         </ScrollViewer>
 
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="2"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Stretch"
+        <Grid Grid.Row="2"
+              BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}"
+              BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
                     Padding="0,8,0,0"
-                    BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}"
-                    BorderThickness="0,1,0,0">
+>
 
-            <!-- Cancel button -->
-            <Button Padding="12,6"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Left"
-                    Background="Transparent"
-                    CornerRadius="{StaticResource FluentButtonCorners}"
-                    Style="{ThemeResource ButtonRevealStyle}">
-                <Button.Content>
-                    <StackPanel MinWidth="128"
-                                MinHeight="32"
-                                Orientation="Horizontal">
-                        <TextBlock Text="&#xE10A;"
-                                   FontFamily="Segoe MDL2 Assets"
-                                   Style="{ThemeResource SubtitleTextBlockStyle}"
-                                   Padding="0,0,12,0"
-                                   VerticalAlignment="Center"/>
-                        <TextBlock x:Uid="ExitConfirmation-No"
-                                   Text="Cancel"
-                                   VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button.Content>
-                <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Modifiers="None"
-                                         Key="N" />
-                </Button.KeyboardAccelerators>
-            </Button>
+                <!-- Cancel button -->
+                <Button Padding="12,6"
+                        Margin="6,0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Background="Transparent"
+                        CornerRadius="{StaticResource FluentButtonCorners}"
+                        Style="{ThemeResource ButtonRevealStyle}">
+                    <Button.Content>
+                        <StackPanel MinWidth="128"
+                                    MinHeight="32"
+                                    Orientation="Horizontal">
+                            <TextBlock Text="&#xE10A;"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Padding="0,0,12,0"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock x:Uid="ExitConfirmation-No"
+                                       Text="Cancel"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="None"
+                                             Key="N" />
+                    </Button.KeyboardAccelerators>
+                </Button>
 
-            <!-- Save button -->
-            <Button Padding="12,6"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Left"
-                    Background="{ThemeResource SystemControlBackgroundAccentBrush}"
-                    RequestedTheme="Dark"
-                    CornerRadius="{StaticResource FluentButtonCorners}"
-                    Style="{ThemeResource ButtonRevealStyle}">
-                <Button.Content>
-                    <StackPanel MinWidth="128"
-                                MinHeight="32"
-                                Orientation="Horizontal">
-                        <TextBlock Text="&#xE105;"
-                                   FontFamily="Segoe MDL2 Assets"
-                                   Style="{ThemeResource SubtitleTextBlockStyle}"
-                                   VerticalAlignment="Center"
-                                   Padding="0,0,12,0"/>
-                        <TextBlock x:Uid="Unsaved_SaveText"
-                                   Text="Save"
-                                   VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button.Content>
-                <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Modifiers="None"
-                                         Key="S" />
-                </Button.KeyboardAccelerators>
-            </Button>
+                <!-- Save button -->
+                <Button Padding="12,6"
+                        Margin="6,0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                        RequestedTheme="Dark"
+                        CornerRadius="{StaticResource FluentButtonCorners}"
+                        Style="{ThemeResource ButtonRevealStyle}">
+                    <Button.Content>
+                        <StackPanel MinWidth="128"
+                                    MinHeight="32"
+                                    Orientation="Horizontal">
+                            <TextBlock Text="&#xE105;"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       VerticalAlignment="Center"
+                                       Padding="0,0,12,0"/>
+                            <TextBlock x:Uid="Unsaved_SaveText"
+                                       Text="Save"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="None"
+                                            Key="S" />
+                    </Button.KeyboardAccelerators>
+                </Button>
 
-        </StackPanel>
+            </StackPanel>
 
+        </Grid>
+        
 
         <!-- Dialog background icon -->
         <FontIcon Grid.Row="2"

@@ -26,12 +26,26 @@
     --><!--Extra Extra Small size margins--><!--
     <Thickness x:Key="XXSmallTopMargin">0, 4, 0, 0</Thickness>-->
 
+    <!-- FluBase stuff -->
 
     <!-- Fluent Dialog margins -->
     <Thickness x:Key="DialogCategoryMargin">0,0,0,48</Thickness>
     <Thickness x:Key="DialogSubcategoryMargin">0,0,0,24</Thickness>
     <Thickness x:Key="DialogTitleMargin">0,0,0,16</Thickness>
     <Thickness x:Key="DialogSubtitleMargin">0,0,0,12</Thickness>
+
+    <!-- Custom stuff -->
+    <Thickness x:Key="FormTextBoxMargin">0,0,0,12</Thickness>
+
+
+
+
+
+
+
+
+
+    <!-- Old -->
 
     <!--Medium size margins-->
     <Thickness x:Key="MediumLeftMargin">24,0,0,0</Thickness>

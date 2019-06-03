@@ -106,6 +106,20 @@
                                    Text="Translators"
                                    Style="{ThemeResource FluentCaptionTextStyle}" />
                 </StackPanel>
+
+
+
+                <!-- Dialog buttons -->
+                <Button x:Name="btnNewTemplate"
+                        Content="New template"
+                        Click="BtnNewTemplate_Click"/>
+
+                <Button x:Name="btnSettings"
+                        Content="Settings"
+                        Click="BtnSettings_Click"/>
+                
+                <Button x:Name="btnAbout"
+                        Content="About" />
             </StackPanel>
         </Grid>
     </Grid>

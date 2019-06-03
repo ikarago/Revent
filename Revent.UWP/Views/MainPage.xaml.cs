@@ -13,8 +13,19 @@ namespace Revent.UWP.Views
         public MainPage()
         {
             InitializeComponent();
+
+        }
+
+        private async void BtnNewTemplate_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
             NewTemplateDialog temp = new NewTemplateDialog();
-            temp.ShowAsync();
+            await temp.ShowAsync();
+        }
+
+        private async void BtnSettings_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            SettingsDialog temp = new SettingsDialog();
+            await temp.ShowAsync();
         }
     }
 }
