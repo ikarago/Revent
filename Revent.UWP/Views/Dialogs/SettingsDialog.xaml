@@ -18,7 +18,7 @@
         <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
     </ContentDialog.Resources>
 
-    <Grid Margin="0">
+    <Grid>
         <Grid.BackgroundTransition>
             <BrushTransition />
         </Grid.BackgroundTransition>
@@ -49,13 +49,17 @@
         <!-- Content -->
         <ScrollViewer Grid.Row="1">
             <StackPanel Padding="0,12,0,0">
-                <!-- Personalization -->
+
+                <!-- Personalisation -->
                 <StackPanel Margin="{StaticResource DialogCategoryMargin}">
-                    <TextBlock Text="Personalization"
-                               x:Uid="Settings_Personalization"
-                               FontWeight="Bold"
-                               Margin="{StaticResource DialogSubtitleMargin}"
-                               Style="{StaticResource FluentTitleTextStyle}" />
+                    <StackPanel Orientation="Horizontal"
+                                Margin="{ThemeResource DialogTitleMargin}">
+                        <TextBlock Text="&#xE790;"
+                                   Style="{ThemeResource FluentTitleIconStyle}" />
+                        <TextBlock x:Uid="Settings_Personalization"
+                                   Text="Personalisation"                              
+                                   Style="{StaticResource FluentTitleTextStyle}" />
+                    </StackPanel>
 
                     <!-- Theme -->
                     <StackPanel Margin="{StaticResource DialogSubcategoryMargin}">
@@ -92,7 +96,7 @@
                     </StackPanel>
 
                 </StackPanel>
-
+                <!-- END OF - Personalisation -->
 
             </StackPanel>
         </ScrollViewer>

@@ -72,7 +72,7 @@
                     </Grid>
 
                     <!-- About Description -->
-                    <TextBlock Text="Notepad, created and programmed by Ikarago, 2018-2019"
+                    <TextBlock Text="Revent, created and programmed by Ikarago, 2018-2019"
                                x:Uid="About_Description"
                                TextWrapping="Wrap"
                                Margin="{StaticResource XSmallTopMargin}"/>
