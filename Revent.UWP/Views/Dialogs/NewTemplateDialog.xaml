@@ -29,7 +29,7 @@
                        BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}"
                        BorderThickness="0,0,0,1">
             <TextBlock Text="New template"
-                       Style="{ThemeResource FluentHeaderTextStyle}"
+                       Style="{ThemeResource FluentSubheaderTextStyle}"
                        RelativePanel.AlignVerticalCenterWithPanel="True"/>
             <Button Content="&#xE106;"
                     Background="Transparent"

@@ -35,7 +35,7 @@
                        Text="About"
                        Margin="12,0"
                        VerticalAlignment="Center"
-                       Style="{ThemeResource FluentHeaderTextStyle}"/>
+                       Style="{ThemeResource FluentSubheaderTextStyle}"/>
         </StackPanel>
 
         <!-- Content -->
@@ -57,12 +57,12 @@
                                    Grid.Row="0"
                                    Grid.RowSpan="2"
                                    Text="&#xE946;"
-                                   Style="{ThemeResource FluentSubheaderIconStyle}"/>
+                                   Style="{ThemeResource FluentTitleIconStyle}"/>
                         <!-- App Title -->
                         <TextBlock Grid.Column="1"
                                    Grid.Row="0"
                                    Text="{x:Bind ViewModel.AppName}"
-                                   Style="{ThemeResource FluentSubheaderTextStyle}"
+                                   Style="{ThemeResource FluentTitleTextStyle}"
                                    FontWeight="SemiBold"/>
                         <!-- Version number -->
                         <TextBlock Grid.Column="1"
@@ -86,10 +86,10 @@
                                 Margin="{ThemeResource DialogTitleMargin}">
                         <TextBlock Text="&#xE164;"
                                    VerticalAlignment="Center"
-                                   Style="{ThemeResource FluentSubheaderIconStyle}"/>
+                                   Style="{ThemeResource FluentTitleIconStyle}"/>
                         <TextBlock x:Uid="About_TranslatorsTitle"
                                    Text="Translators"
-                                   Style="{ThemeResource FluentSubheaderTextStyle}"/>
+                                   Style="{ThemeResource FluentTitleTextStyle}"/>
                     </StackPanel>
 
                     <TextBlock x:Uid="About_Translators"
@@ -103,10 +103,10 @@
                     <StackPanel Orientation="Horizontal"
                                 Margin="{ThemeResource DialogTitleMargin}">
                         <TextBlock Text="&#xE134;"
-                                   Style="{ThemeResource FluentSubheaderIconStyle}" />
+                                   Style="{ThemeResource FluentTitleIconStyle}" />
                         <TextBlock x:Uid="About_AcknowledgementsTitle"
                                    Text="Acknowledgements"                              
-                                   Style="{StaticResource FluentSubheaderTextStyle}" />
+                                   Style="{StaticResource FluentTitleTextStyle}" />
                     </StackPanel>
 
                     <!-- Intro -->
@@ -137,10 +137,10 @@
                     <StackPanel Orientation="Horizontal"
                                 Margin="{ThemeResource DialogTitleMargin}">
                         <TextBlock Text="&#xE71B;"
-                                   Style="{ThemeResource FluentSubheaderIconStyle}"/>
+                                   Style="{ThemeResource FluentTitleIconStyle}"/>
                         <TextBlock x:Uid="About_LinksTitle"
                                    Text="Links"
-                                   Style="{ThemeResource FluentSubheaderTextStyle}" />
+                                   Style="{ThemeResource FluentTitleTextStyle}" />
                     </StackPanel>
 
 

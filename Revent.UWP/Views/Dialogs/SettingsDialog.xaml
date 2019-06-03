@@ -42,7 +42,7 @@
                        Text="Settings"
                        Margin="12,0"
                        VerticalAlignment="Center"
-                       Style="{ThemeResource FluentHeaderTextStyle}"/>
+                       Style="{ThemeResource FluentSubheaderTextStyle}"/>
         </StackPanel>
 
 
@@ -55,7 +55,7 @@
                                x:Uid="Settings_Personalization"
                                FontWeight="Bold"
                                Margin="{StaticResource DialogSubtitleMargin}"
-                               Style="{StaticResource FluentSubheaderTextStyle}" />
+                               Style="{StaticResource FluentTitleTextStyle}" />
 
                     <!-- Theme -->
                     <StackPanel Margin="{StaticResource DialogSubcategoryMargin}">

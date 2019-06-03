@@ -37,27 +37,27 @@
     </Style>-->
 
     
-    <!-- Large Header -->
-    <Style x:Key="FluentLargeHeaderTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="32" />
-        <Setter Property="FontWeight" Value="Bold" />
-    </Style>
-
-
     <!-- Header -->
     <Style x:Key="FluentHeaderTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontSize" Value="32" />
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
 
 
     <!-- Subheader -->
     <Style x:Key="FluentSubheaderTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+
+    <!-- Title -->
+    <Style x:Key="FluentTitleTextStyle" TargetType="TextBlock">
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="FontSize" Value="18" />
     </Style>
 
-    <Style x:Key="FluentSubheaderIconStyle" TargetType="TextBlock">
+    <Style x:Key="FluentTitleIconStyle" TargetType="TextBlock">
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
@@ -67,8 +67,8 @@
     </Style>
 
 
-    <!-- Light Subheader -->
-    <Style x:Key="FluentLightSubheaderTextStyle" TargetType="TextBlock">
+    <!-- Light Title -->
+    <Style x:Key="FluentLightTitleTextStyle" TargetType="TextBlock">
         <Setter Property="FontWeight" Value="Light" />
         <Setter Property="FontSize" Value="18" />
     </Style>
@@ -79,7 +79,7 @@
         <Setter Property="FontSize" Value="15" />
     </Style>
 
-    <Style x:Key="FluentBaseIconStyle" TargetType="TextBlock" BasedOn="{StaticResource FluentSubheaderIconStyle}">
+    <Style x:Key="FluentBaseIconStyle" TargetType="TextBlock" BasedOn="{StaticResource FluentTitleIconStyle}">
         <!-- Added for easy editing -->
     </Style>
 
@@ -90,7 +90,7 @@
         <Setter Property="FontSize" Value="15" />
     </Style>
 
-    <Style x:Key="FluentBodyIconStyle" TargetType="TextBlock" BasedOn="{StaticResource FluentSubheaderIconStyle}">
+    <Style x:Key="FluentBodyIconStyle" TargetType="TextBlock" BasedOn="{StaticResource FluentTitleIconStyle}">
         <!-- Added for easy editing -->
     </Style>
 
@@ -107,7 +107,7 @@
         <Setter Property="FontSize" Value="12" />
     </Style>
 
-    <Style x:Key="FluentCaptionIconStyle" TargetType="TextBlock" BasedOn="{StaticResource FluentSubheaderIconStyle}">
+    <Style x:Key="FluentCaptionIconStyle" TargetType="TextBlock" BasedOn="{StaticResource FluentTitleIconStyle}">
         <!-- Added for easy editing -->
     </Style>
 
