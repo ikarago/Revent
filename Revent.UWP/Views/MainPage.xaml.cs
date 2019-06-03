@@ -27,5 +27,11 @@ namespace Revent.UWP.Views
             SettingsDialog temp = new SettingsDialog();
             await temp.ShowAsync();
         }
+
+        private async void BtnAbout_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            AboutDialog temp = new AboutDialog();
+            await temp.ShowAsync();
+        }
     }
 }

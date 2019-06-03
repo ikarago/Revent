@@ -1,10 +1,12 @@
 ﻿using Revent.UWP.Helpers;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
+
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -21,6 +23,8 @@ namespace Revent.UWP.Views.Dialogs
     {
         public NewTemplateDialog()
         {
+            // Added because this dialog just likes to stay on Dark Theme otherwise
+            RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
             this.InitializeComponent();
         }
 

@@ -12,6 +12,9 @@
     CornerRadius="{StaticResource FluentDialogCorners}">
 
     <Grid>
+        <Grid.BackgroundTransition>
+            <BrushTransition />
+        </Grid.BackgroundTransition>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
