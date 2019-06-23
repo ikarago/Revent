@@ -74,7 +74,7 @@
                     <TextBlock Grid.Column="0"
                                Text="&#xEA91;"
                                Width="48"
-                               Style="{ThemeResource NewTemplateDialogIconStyle}"/>
+                               Style="{ThemeResource FluentFormIconStyle}"/>
 
                     <TextBox Grid.Column="1"
                              PlaceholderText="Template name"
@@ -93,7 +93,7 @@
                     <TextBlock Grid.Column="0"
                                Text="&#xE15F;"
                                Width="48"
-                               Style="{ThemeResource NewTemplateDialogIconStyle}"/>
+                               Style="{ThemeResource FluentFormIconStyle}"/>
 
                     <TextBox Grid.Column="1"
                              PlaceholderText="Subject"
@@ -113,7 +113,7 @@
                     <TextBlock Grid.Column="0"
                                Text="&#xE7B7;"
                                Width="48"
-                               Style="{ThemeResource NewTemplateDialogIconStyle}"/>
+                               Style="{ThemeResource FluentFormIconStyle}"/>
 
                     <TextBox Grid.Column="1"
                              PlaceholderText="Location"
@@ -134,7 +134,7 @@
                     <TextBlock Grid.Column="0"
                                Text="&#xE121;"
                                Width="48"
-                               Style="{ThemeResource NewTemplateDialogIconStyle}"/>
+                               Style="{ThemeResource FluentFormIconStyle}"/>
 
                     <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
@@ -177,7 +177,7 @@
                     <TextBlock Grid.Column="0"
                                Text="&#xE104;"
                                Width="48"
-                               Style="{ThemeResource NewTemplateDialogIconStyle}"/>
+                               Style="{ThemeResource FluentFormIconStyle}"/>
 
                     <TextBox Grid.Column="1"
                              PlaceholderText="Details"
