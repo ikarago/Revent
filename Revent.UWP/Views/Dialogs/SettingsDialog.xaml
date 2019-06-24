@@ -50,6 +50,36 @@
         <ScrollViewer Grid.Row="1">
             <StackPanel Padding="0,12,0,0">
 
+                <!-- App settings -->
+                <StackPanel Margin="{StaticResource DialogCategoryMargin}">
+                    <StackPanel Orientation="Horizontal"
+                                Margin="{ThemeResource DialogTitleMargin}">
+                        <TextBlock Text="&#xE115;"
+                                   Style="{ThemeResource FluentTitleIconStyle}" />
+                        <TextBlock Text="General"                              
+                                   Style="{StaticResource FluentTitleTextStyle}" />
+                    </StackPanel>
+
+                    <!-- Extra info Live Tile -->
+                    <StackPanel Margin="{StaticResource DialogSubcategoryMargin}">
+                        <TextBlock Text="Show extra info on Live Tile"
+                                   Style="{ThemeResource BodyTextBlockStyle}"/>
+                        <ToggleSwitch 
+                                      Margin="{StaticResource XSmallTopMargin}"/>
+                    </StackPanel>
+
+                    <!-- Another appointment dialog -->
+                    <StackPanel Margin="{StaticResource DialogSubcategoryMargin}">
+                        <TextBlock Text="Ask to create another appointment"
+                                   Style="{ThemeResource BodyTextBlockStyle}"/>
+                        <ToggleSwitch 
+                                      Margin="{StaticResource XSmallTopMargin}"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <!-- END OF - Personalisation -->
+
+
                 <!-- Personalisation -->
                 <StackPanel Margin="{StaticResource DialogCategoryMargin}">
                     <StackPanel Orientation="Horizontal"
