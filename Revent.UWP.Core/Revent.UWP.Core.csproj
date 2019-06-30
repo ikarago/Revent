@@ -6,10 +6,14 @@
   </PropertyGroup>
 
    <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
+   </ItemGroup>
 
    <ItemGroup>
-     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+     <Reference Include="Windows.Foundation.UniversalApiContract">
+       <HintPath>..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\References\10.0.18362.0\Windows.Foundation.UniversalApiContract\8.0.0.0\Windows.Foundation.UniversalApiContract.winmd</HintPath>
+       <IsWinMDFile>true</IsWinMDFile>
+     </Reference>
    </ItemGroup>
 </Project>

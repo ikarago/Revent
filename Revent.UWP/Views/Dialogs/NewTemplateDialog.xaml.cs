@@ -1,5 +1,6 @@
-﻿using Revent.UWP.Helpers;
-
+﻿using Revent.UWP.Core.Models;
+using Revent.UWP.Helpers;
+using Revent.UWP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,14 +22,23 @@ namespace Revent.UWP.Views.Dialogs
 {
     public sealed partial class NewTemplateDialog : ContentDialog
     {
-        public NewTemplateDialog()
+        // Properties
+        public TemplateEditorViewModel ViewModel;
+        public TemplateModel SavedTemplate;
+
+        // Constructor
+        public NewTemplateDialog(TemplateModel existModel = null)
         {
+            // Create the new ViewModel, with possible existing Model as well
+            ViewModel = new TemplateEditorViewModel(existModel);
+
             // Added because this dialog just likes to stay on Dark Theme otherwise
             RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
             this.InitializeComponent();
         }
 
 
+        // Commands
         private ICommand _closeDialogCommand;
         public ICommand CloseDialogCommand
         {
@@ -45,5 +55,33 @@ namespace Revent.UWP.Views.Dialogs
                 return _closeDialogCommand;
             }
         }
+
+        private ICommand _saveCommand;
+        public ICommand SaveCommand
+        {
+            get
+            {
+                if (_saveCommand == null)
+                {
+                    _saveCommand = new RelayCommand(
+                    () =>
+                    {
+                        Save();
+                    });
+                }
+                return _saveCommand;
+            }
+        }
+
+
+
+        // Methods
+        private void Save()
+        {
+            SavedTemplate = ViewModel.SaveTemplate();
+            Hide();
+        }
+
+
     }
 }

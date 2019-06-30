@@ -79,6 +79,7 @@
                     <TextBox Grid.Column="1"
                              PlaceholderText="Template name"
                              HorizontalAlignment="Stretch"
+                             Text="{x:Bind ViewModel.Template.TemplateName, Mode=TwoWay}"
                              Style="{ThemeResource FluentTextBoxStyle}"/>
                 </Grid>
 
@@ -98,6 +99,7 @@
                     <TextBox Grid.Column="1"
                              PlaceholderText="Subject"
                              HorizontalAlignment="Stretch"
+                             Text="{x:Bind ViewModel.Template.AppointmentSubject, Mode=TwoWay}"
                              Style="{ThemeResource FluentTextBoxStyle}"/>
                 </Grid>
 
@@ -118,6 +120,7 @@
                     <TextBox Grid.Column="1"
                              PlaceholderText="Location"
                              HorizontalAlignment="Stretch"
+                             Text="{x:Bind ViewModel.Template.AppointmentLocation, Mode=TwoWay}"
                              Style="{ThemeResource FluentTextBoxStyle}"/>
                 </Grid>
 
@@ -183,6 +186,7 @@
                              PlaceholderText="Details"
                              HorizontalAlignment="Stretch"
                              AcceptsReturn="True"
+                             Text="{x:Bind ViewModel.Template.AppointmentDetails, Mode=TwoWay}"
                              Style="{ThemeResource FluentTextBoxStyle}"/>
                 </Grid>
 
@@ -210,6 +214,7 @@
                         HorizontalContentAlignment="Left"
                         Background="Transparent"
                         CornerRadius="{StaticResource FluentButtonCorners}"
+                        Command="{x:Bind CloseDialogCommand}"
                         Style="{ThemeResource ButtonRevealStyle}">
                     <Button.Content>
                         <StackPanel MinWidth="128"
@@ -227,7 +232,7 @@
                     </Button.Content>
                     <Button.KeyboardAccelerators>
                         <KeyboardAccelerator Modifiers="None"
-                                             Key="N" />
+                                             Key="Escape" />
                     </Button.KeyboardAccelerators>
                 </Button>
 
@@ -239,6 +244,7 @@
                         Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                         RequestedTheme="Dark"
                         CornerRadius="{StaticResource FluentButtonCorners}"
+                        Command="{x:Bind SaveCommand}"
                         Style="{ThemeResource ButtonRevealStyle}">
                     <Button.Content>
                         <StackPanel MinWidth="128"
@@ -255,8 +261,8 @@
                         </StackPanel>
                     </Button.Content>
                     <Button.KeyboardAccelerators>
-                        <KeyboardAccelerator Modifiers="None"
-                                            Key="S" />
+                        <KeyboardAccelerator Modifiers="Control"
+                                             Key="S" />
                     </Button.KeyboardAccelerators>
                 </Button>
 
