@@ -8,6 +8,25 @@
 
     xmlns:model="using:Revent.UWP.Core.Models"
     mc:Ignorable="d">
+    <Page.Resources>
+
+        <!-- Menu Flyouts -->
+        <MenuFlyout x:Key="TemplateItemMenuFlyout"
+                    Placement="Bottom">
+            <MenuFlyoutItem Icon="Pin"
+                            Text="Pin to Start" />
+            <MenuFlyoutItem Icon="UnPin"
+                            Text="Unpin from Start" />
+            <MenuFlyoutItem Icon="Edit"
+                            Text="Edit template" />
+            <MenuFlyoutSeparator />
+            <MenuFlyoutItem Icon="Delete"
+                            Text="Delete"
+                            Command="{x:Bind ViewModel.DeleteTemplateCommand}"/>
+        </MenuFlyout>
+    </Page.Resources>
+
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
@@ -66,7 +85,6 @@
             <!-- ListView -->
             <ListView x:Name="lvItemTemplates"
                       Grid.Row="1"
-                      SelectionMode="None"
                       IsItemClickEnabled="True"
                       ItemsSource="{x:Bind ViewModel.Templates, Mode=OneWay}"
                       SelectedItem="{x:Bind ViewModel.SelectedTemplate, Mode=TwoWay}"
@@ -78,22 +96,10 @@
                               Background="Transparent"
                               Margin="0"
                               Padding="0,8"
-                              HorizontalAlignment="Stretch">
-
-                            <Grid.ContextFlyout>
-                                <MenuFlyout Placement="Bottom">
-                                    <MenuFlyoutItem Icon="Pin"
-                                                    Text="Pin to Start" />
-                                    <MenuFlyoutItem Icon="UnPin"
-                                                    Text="Unpin from Start" />
-                                    <MenuFlyoutItem Icon="Edit"
-                                                    Text="Edit template" />
-                                    <MenuFlyoutSeparator />
-                                    <MenuFlyoutItem Icon="Delete"
-                                                    Text="Delete" />
-                                </MenuFlyout>
-                            </Grid.ContextFlyout>
-
+                              HorizontalAlignment="Stretch"
+                              Holding="Grid_Holding"
+                              RightTapped="Grid_RightTapped"
+                              FlyoutBase.AttachedFlyout="{StaticResource TemplateItemMenuFlyout}">
                             <StackPanel Orientation="Horizontal">
                                 <Grid Background="Transparent"
                                       Height="72"

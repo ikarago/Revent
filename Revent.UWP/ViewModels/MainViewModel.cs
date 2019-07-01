@@ -122,7 +122,7 @@ namespace Revent.UWP.ViewModels
                     _deleteTemplateCommand = new RelayCommand(
                         () =>
                         {
-                            // #TODO
+                            DeleteTemplate();
                         });
                 }
                 return _deleteTemplateCommand;
@@ -217,6 +217,9 @@ namespace Revent.UWP.ViewModels
 
 
         // Methods
+        /// <summary>
+        /// Get the saved templates from the database
+        /// </summary>
         private void GetTemplates()
         {
             try
@@ -230,7 +233,9 @@ namespace Revent.UWP.ViewModels
             }
         }
 
-
+        /// <summary>
+        /// Create a new Template by displaying the NewTemplateDialog and add it to the list if the user saves it
+        /// </summary>
         private async void NewTemplate()
         {
             // Open the NewTemplate Dialog and get the TemplateModel made in there
@@ -321,7 +326,27 @@ namespace Revent.UWP.ViewModels
 
 
         // Delete Templates
+        private void DeleteTemplate()
+        {
+            Debug.WriteLine("MainViewModel - Delete Template... START");
 
+            TemplateModel template = SelectedTemplate;
+
+            try
+            {
+                DatabaseService.Delete(template);
+                Templates.Remove(template);
+                SelectedTemplate = null;
+                Debug.WriteLine("MainViewModel - Delete Template... SUCCESSFUL");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("MainViewModel - Delete Template... FAILED. Error stated below:");
+                Debug.WriteLine(ex.Message);
+            }
+
+
+        }
 
         // Pin Templates
 
