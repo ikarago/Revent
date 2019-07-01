@@ -5,6 +5,7 @@ using Revent.UWP.Services;
 
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Storage;
 using Windows.UI.Xaml;
 
 namespace Revent.UWP
@@ -24,6 +25,9 @@ namespace Revent.UWP
 
             EnteredBackground += App_EnteredBackground;
             Resuming += App_Resuming;
+
+            DatabaseService.CreateDatabase();
+            SetSettings();
 
             // Deferred execution until used. Check https://msdn.microsoft.com/library/dd642331(v=vs.110).aspx for further info on Lazy<T> class.
             _activationService = new Lazy<ActivationService>(CreateActivationService);
@@ -58,5 +62,25 @@ namespace Revent.UWP
         {
             Singleton<SuspendAndResumeService>.Instance.ResumeApp();
         }
+
+        private void SetSettings()
+        {
+            const string infoOnTiles = "infoOnTiles";
+            const string askForAnother = "askForAnother";
+
+            // Set the local settings
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+
+            // Now fill in the others if empty
+            if (localSettings.Values[askForAnother] == null)
+            {
+                localSettings.Values[askForAnother] = "true";
+            }
+            if (localSettings.Values[infoOnTiles] == null)
+            {
+                localSettings.Values[infoOnTiles] = "true";
+            }
+        }
+
     }
 }

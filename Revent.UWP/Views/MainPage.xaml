@@ -64,9 +64,13 @@
 
 
             <!-- ListView -->
-            <ListView Grid.Row="1"
+            <ListView x:Name="lvItemTemplates"
+                      Grid.Row="1"
+                      SelectionMode="None"
+                      IsItemClickEnabled="True"
                       ItemsSource="{x:Bind ViewModel.Templates, Mode=OneWay}"
-                      SelectedItem="{x:Bind ViewModel.SelectedTemplate, Mode=TwoWay}">
+                      SelectedItem="{x:Bind ViewModel.SelectedTemplate, Mode=TwoWay}"
+                      ItemClick="LvItemTemplates_ItemClick">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:TemplateModel">
                         <Grid BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
@@ -79,14 +83,14 @@
                             <Grid.ContextFlyout>
                                 <MenuFlyout Placement="Bottom">
                                     <MenuFlyoutItem Icon="Pin"
-                                                Text="Pin to Start" />
+                                                    Text="Pin to Start" />
                                     <MenuFlyoutItem Icon="UnPin"
-                                                Text="Unpin from Start" />
+                                                    Text="Unpin from Start" />
                                     <MenuFlyoutItem Icon="Edit"
-                                                Text="Edit template" />
+                                                    Text="Edit template" />
                                     <MenuFlyoutSeparator />
                                     <MenuFlyoutItem Icon="Delete"
-                                                Text="Delete" />
+                                                    Text="Delete" />
                                 </MenuFlyout>
                             </Grid.ContextFlyout>
 
@@ -213,9 +217,9 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Text="Settings"
                                                 Icon="Setting"
-                                                Click="BtnSettings_Click"/>
+                                                Command="{x:Bind ViewModel.SettingsCommand}" />
                                 <MenuFlyoutItem Text="About"
-                                                Click="BtnAbout_Click">
+                                                Command="{x:Bind ViewModel.AboutCommand}">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon Glyph="&#xE946;"/>
                                     </MenuFlyoutItem.Icon>

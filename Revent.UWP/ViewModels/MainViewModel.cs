@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Revent.UWP.Core.Models;
 using Revent.UWP.Helpers;
 using Revent.UWP.Services;
 using Revent.UWP.Views.Dialogs;
+using Windows.ApplicationModel.Appointments;
+using Windows.Storage;
 
 namespace Revent.UWP.ViewModels
 {
@@ -134,9 +137,9 @@ namespace Revent.UWP.ViewModels
                 if (_openTemplateCommand == null)
                 {
                     _openTemplateCommand = new RelayCommand(
-                        () =>
+                        async () =>
                         {
-                            // #TODO
+                            await OpenAppointmentOnCalendar();
                         });
                 }
                 return _openTemplateCommand;
@@ -178,6 +181,40 @@ namespace Revent.UWP.ViewModels
         }
 
 
+        private ICommand _aboutCommand;
+        public ICommand AboutCommand
+        {
+            get
+            {
+                if (_aboutCommand == null)
+                {
+                    _aboutCommand = new RelayCommand(
+                        () =>
+                        {
+                            ShowAboutDialog();
+                        });
+                }
+                return _aboutCommand;
+            }
+        }
+
+        private ICommand _settingsCommand;
+        public ICommand SettingsCommand
+        {
+            get
+            {
+                if (_settingsCommand == null)
+                {
+                    _settingsCommand = new RelayCommand(
+                        () =>
+                        {
+                            ShowSettingsDialog();
+                        });
+                }
+                return _settingsCommand;
+            }
+        }
+
 
         // Methods
         private void GetTemplates()
@@ -207,10 +244,106 @@ namespace Revent.UWP.ViewModels
 
 
         // Open Template
+        public async Task<bool> OpenAppointmentOnCalendar()
+        {
+            bool success = false;
+            bool done = false;
+
+            const string askForAnother = "askForAnother";
+            var _localSettings = ApplicationData.Current.LocalSettings;
+
+            if (_localSettings.Values[askForAnother].ToString() == "true")
+            {
+                AnotherAppointmentDialog isDoneDialog = new AnotherAppointmentDialog();
+                
+                do
+                {
+                    success = await OpenNewAppointmentOnCalendar();
+                    await isDoneDialog.ShowAsync();
+
+                    if (isDoneDialog.Result == AnotherAppointmentDialogResult.Cancel || isDoneDialog.Result == AnotherAppointmentDialogResult.DialogClosed)
+                    {
+                        done = true;
+                    }
+                }
+                while (done == false);
+            }
+            else
+            {
+                success = await OpenNewAppointmentOnCalendar();
+            }
+
+            return done;
+        }
+
+        // Open the template themselves
+        private async Task<bool> OpenNewAppointmentOnCalendar()
+        {
+            bool success = false;
+
+            var appointment = new Appointment();
+
+            // Set the data (if not null)
+            if (SelectedTemplate.AppointmentSubject != null) { appointment.Subject = SelectedTemplate.AppointmentSubject; }
+            if (SelectedTemplate.AppointmentLocation != null) { appointment.Location = SelectedTemplate.AppointmentLocation; }
+            if (SelectedTemplate.AppointmentDetails != null) { appointment.Details = SelectedTemplate.AppointmentDetails; }
+
+            Debug.WriteLine(SelectedTemplate.AppointmentDuration);
+
+            if (SelectedTemplate.AppointmentAllDay != true)
+            {
+                try
+                {
+                    Debug.WriteLine("Duration is: " + appointment.Duration);
+                    appointment.Duration = TimeSpan.FromMinutes(SelectedTemplate.AppointmentDuration);
+                }
+                catch
+                { return success; }
+            }
+            else
+            {
+                appointment.AllDay = SelectedTemplate.AppointmentAllDay;
+                DateTime midnight = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+                DateTimeOffset midnightOffset = new DateTimeOffset(midnight);
+                appointment.StartTime = midnightOffset;
+            }
+
+            // Open it on the calendar as a new Appointment
+            await Windows.ApplicationModel.Appointments.AppointmentManager.ShowEditNewAppointmentAsync(appointment);
+
+            success = true;
+
+            return success;
+        }
+
+
+        // Edit Templates
+
+
+        // Delete Templates
+
+
+        // Pin Templates
 
 
 
+        /// <summary>
+        /// Opens the Settings Dialog
+        /// </summary>
+        private async void ShowSettingsDialog()
+        {
+            var dialog = new SettingsDialog();
+            await dialog.ShowAsync();
+        }
 
+        /// <summary>
+        /// Opens the About Dialog
+        /// </summary>
+        private async void ShowAboutDialog()
+        {
+            var dialog = new AboutDialog();
+            await dialog.ShowAsync();
+        }
 
     }
 }

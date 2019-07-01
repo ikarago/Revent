@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Revent.UWP.Core.Models;
 using Revent.UWP.ViewModels;
 using Revent.UWP.Views.Dialogs;
 using Windows.UI.Xaml.Controls;
@@ -16,22 +16,18 @@ namespace Revent.UWP.Views
 
         }
 
-        private async void BtnNewTemplate_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            NewTemplateDialog temp = new NewTemplateDialog();
-            await temp.ShowAsync();
-        }
 
-        private async void BtnSettings_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            SettingsDialog temp = new SettingsDialog();
-            await temp.ShowAsync();
-        }
 
-        private async void BtnAbout_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void LvItemTemplates_ItemClick(object sender, ItemClickEventArgs e)
         {
-            AboutDialog temp = new AboutDialog();
-            await temp.ShowAsync();
+            // Set the SelectedItem to the clicked item, because it'll be updated after raising this event, and therefor not operate as expected otherwise
+            ViewModel.SelectedTemplate = (TemplateModel)e.ClickedItem;
+
+            // Check if the Command can be executed and execute it
+            if (ViewModel.OpenTemplateCommand.CanExecute(null))
+            {
+                ViewModel.OpenTemplateCommand.Execute(null);
+            }
         }
     }
 }

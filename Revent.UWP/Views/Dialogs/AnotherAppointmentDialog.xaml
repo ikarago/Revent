@@ -73,7 +73,8 @@
             <Button Padding="12,6"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
-                    Background="Transparent"
+                    Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                    RequestedTheme="Dark"
                     Style="{ThemeResource ButtonRevealStyle}"
                     CornerRadius="{ThemeResource FluentButtonCorners}"
                     Command="{x:Bind OneMoreCommand}">
