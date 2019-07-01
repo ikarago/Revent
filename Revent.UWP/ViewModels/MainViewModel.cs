@@ -105,7 +105,7 @@ namespace Revent.UWP.ViewModels
                     _editTemplateCommand = new RelayCommand(
                         () =>
                         {
-                            // #TODO
+                            EditTemplate();
                         });
                 }
                 return _editTemplateCommand;
@@ -245,6 +245,23 @@ namespace Revent.UWP.ViewModels
 
             // Add this model back to the Templates List for use
             Templates.Add(model);
+        }
+
+        private async void EditTemplate()
+        {
+            TemplateModel originalTemplate = SelectedTemplate;
+            TemplateModel updatedTemplate;
+
+            // Open the NewTemplate Dialog and get the TemplateModel made in there
+            NewTemplateDialog temp = new NewTemplateDialog(originalTemplate);
+            await temp.ShowAsync();
+            updatedTemplate = temp.SavedTemplate;
+
+            // Remove the old template from the list
+            Templates.Remove(originalTemplate);
+
+            // Add this model back to the Templates List for use
+            Templates.Add(updatedTemplate);
         }
 
 

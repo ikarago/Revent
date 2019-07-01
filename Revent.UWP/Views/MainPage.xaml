@@ -14,11 +14,14 @@
         <MenuFlyout x:Key="TemplateItemMenuFlyout"
                     Placement="Bottom">
             <MenuFlyoutItem Icon="Pin"
-                            Text="Pin to Start" />
+                            Text="Pin to Start"
+                            Command="{x:Bind ViewModel.PinTemplateToStart}"/>
             <MenuFlyoutItem Icon="UnPin"
-                            Text="Unpin from Start" />
+                            Text="Unpin from Start"
+                            Command="{x:Bind ViewModel.UnpinTemplateToStart}"/>
             <MenuFlyoutItem Icon="Edit"
-                            Text="Edit template" />
+                            Text="Edit template"
+                            Command="{x:Bind ViewModel.EditTemplateCommand}"/>
             <MenuFlyoutSeparator />
             <MenuFlyoutItem Icon="Delete"
                             Text="Delete"

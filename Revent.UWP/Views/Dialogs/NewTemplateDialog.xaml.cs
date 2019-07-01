@@ -35,6 +35,20 @@ namespace Revent.UWP.Views.Dialogs
             // Added because this dialog just likes to stay on Dark Theme otherwise
             RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
             this.InitializeComponent();
+
+            // Set the title of the dialog
+            if (ViewModel.ExistingTemplate.TemplateId >= 1)
+            {
+                // Set as Edit Template
+            }
+            else if (ViewModel.ExistingTemplate.TemplateId == -1)
+            {
+                // Set as Import Template
+            }
+            else
+            {
+                // Set as New Template
+            }
         }
 
 
