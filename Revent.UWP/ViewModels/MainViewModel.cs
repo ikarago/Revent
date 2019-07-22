@@ -281,7 +281,7 @@ namespace Revent.UWP.ViewModels
             bool success = false;
             bool done = false;
 
-            const string askForAnother = "askForAnother";
+            const string askForAnother = "AskForAnother";
             var _localSettings = ApplicationData.Current.LocalSettings;
 
             if (_localSettings.Values[askForAnother].ToString() == "true")

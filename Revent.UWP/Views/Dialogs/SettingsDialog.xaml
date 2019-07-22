@@ -64,7 +64,7 @@
                     <StackPanel Margin="{StaticResource DialogSubcategoryMargin}">
                         <TextBlock Text="Show extra info on Live Tile"
                                    Style="{ThemeResource BodyTextBlockStyle}"/>
-                        <ToggleSwitch 
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.MoreInfoOnTiles, Mode=TwoWay}"
                                       Margin="{StaticResource XSmallTopMargin}"/>
                     </StackPanel>
 
@@ -72,7 +72,7 @@
                     <StackPanel Margin="{StaticResource DialogSubcategoryMargin}">
                         <TextBlock Text="Ask to create another appointment"
                                    Style="{ThemeResource BodyTextBlockStyle}"/>
-                        <ToggleSwitch 
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.AskForAnother, Mode=TwoWay}"
                                       Margin="{StaticResource XSmallTopMargin}"/>
                     </StackPanel>
 
