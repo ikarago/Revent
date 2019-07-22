@@ -122,7 +122,6 @@ namespace Revent.UWP.Services
         private async Task StartupAsync()
         {
             await ThemeSelectorService.SetRequestedThemeAsync();
-            Singleton<LiveTileService>.Instance.SampleUpdate();
             await FirstRunDisplayService.ShowIfAppropriateAsync();
             await WhatsNewDisplayService.ShowIfAppropriateAsync();
         }

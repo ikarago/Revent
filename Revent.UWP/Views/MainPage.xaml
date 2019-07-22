@@ -15,10 +15,12 @@
                     Placement="Bottom">
             <MenuFlyoutItem Icon="Pin"
                             Text="Pin to Start"
-                            Command="{x:Bind ViewModel.PinTemplateToStart}"/>
+                            Visibility="Collapsed"
+                            Command="{x:Bind ViewModel.PinTemplateToStartCommand}"/>
             <MenuFlyoutItem Icon="UnPin"
                             Text="Unpin from Start"
-                            Command="{x:Bind ViewModel.UnpinTemplateToStart}"/>
+                            Visibility="Collapsed"
+                            Command="{x:Bind ViewModel.UnpinTemplateToStartCommand}"/>
             <MenuFlyoutItem Icon="Edit"
                             Text="Edit template"
                             Command="{x:Bind ViewModel.EditTemplateCommand}"/>

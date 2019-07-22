@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using Microsoft.Toolkit.Uwp.Notifications;
+using Revent.UWP.Core.Models;
 using Revent.UWP.Helpers;
 using Revent.UWP.Services;
 
 using Windows.ApplicationModel;
 using Windows.Storage;
+using Windows.UI.Notifications;
+using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 
 namespace Revent.UWP.ViewModels
@@ -77,6 +82,17 @@ namespace Revent.UWP.ViewModels
                 }
 
                 Set(ref _moreInfoOnTiles, value);
+
+                // If the switch is set to off then remove all the extra info on the tiles
+                if (value == false)
+                {
+                    RemoveSecondaryTileInfo();
+                }
+                else
+                {
+                    // #TODO Fix and optimize this
+                    AddSecondaryTileInfo();
+                }
             }
         }
 
@@ -120,6 +136,143 @@ namespace Revent.UWP.ViewModels
             /// More info on Tiles
             try { MoreInfoOnTiles = await Windows.Storage.ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(MoreInfoOnTiles)); }
             catch { MoreInfoOnTiles = true; }
+        }
+
+
+        public void AddSecondaryTileInfo()
+        {
+            // Get a list of the Templates
+            ObservableCollection<TemplateModel> templates = DatabaseService.GetTemplates();
+
+            // Check if the template has a pinned tile
+            foreach (var template in templates)
+            {
+                // Re-add the info to it
+                if (!SecondaryTile.Exists(template.TemplateId.ToString()))
+                {
+                    // Try to make a Tile Notification
+                    try
+                    {
+                        TileContent content;
+
+                        if (template.AppointmentSubject != "" && template.AppointmentLocation != "")
+                        {
+                            // First, let's construct the Tiles
+                            content = new TileContent()
+                            {
+                                Visual = new TileVisual()
+                                {
+                                    Branding = TileBranding.NameAndLogo,
+                                    // The small tile, well uh, let's keep that sucker standard
+                                    // So let's edit with the Medium, Wide and Large-tiles and make these look awesome
+                                    // Medium
+                                    TileMedium = new TileBinding()
+                                    {
+                                        Content = new TileBindingContentAdaptive()
+                                        {
+                                            Children =
+                                            {
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.Caption,
+                                                    Text = template.AppointmentSubject
+                                                },
+
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.CaptionSubtle,
+                                                    HintWrap = true,
+                                                    HintMaxLines = 3,
+                                                    Text = template.AppointmentDetails
+                                                }
+                                            }
+                                        }
+                                    },
+                                    // Wide
+                                    TileWide = new TileBinding()
+                                    {
+                                        Content = new TileBindingContentAdaptive()
+                                        {
+                                            Children =
+                                             {
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.Body,
+                                                    Text = template.AppointmentSubject
+                                                },
+
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.CaptionSubtle,
+                                                    HintWrap = true,
+                                                    HintMaxLines = 3,
+                                                    Text = template.AppointmentDetails
+                                                }
+                                             }
+                                        }
+                                    },
+                                    // Large
+                                    TileLarge = new TileBinding()
+                                    {
+                                        Content = new TileBindingContentAdaptive()
+                                        {
+                                            Children =
+                                            {
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.Subtitle,
+                                                    Text = template.AppointmentSubject
+                                                },
+
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.CaptionSubtle,
+                                                    HintWrap = true,
+                                                    Text = template.AppointmentLocation
+                                                },
+
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.Caption,
+                                                    HintWrap = true,
+                                                    Text = template.AppointmentDetails
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            };  // END OF NORMAL-TILE
+
+                            // Now, let's turn the code into a tile notification
+                            var tileNotification = new TileNotification(content.GetXml());
+                            // Now try to give it a tag, in case the tile needs to be updated
+                            try { tileNotification.Tag = template.TemplateId.ToString(); }
+                            catch { Debug.WriteLine("Could not give Secondary Live Tile an ID"); } // In case stuff fuck up, it won't add the ID to the Tile notification
+
+                            // And show the new Tile Notification!
+                            TileUpdateManager.CreateTileUpdaterForSecondaryTile(template.TemplateId.ToString()).Update(tileNotification);
+                        }
+                    }
+                    catch { Debug.WriteLine("Could not create Secondary Live Tile"); }
+                }
+
+            }
+            // Move this code to the TileService because I'm an idiot
+        }
+
+        public void RemoveSecondaryTileInfo()
+        {
+            try
+            {
+                ObservableCollection<TemplateModel> templates = DatabaseService.GetTemplates();
+
+                foreach (var template in templates)
+                {
+                    TileUpdateManager.CreateTileUpdaterForSecondaryTile(template.TemplateId.ToString()).Clear();
+                    Debug.WriteLine("SettingsViewModel - Removed Secondary Tile Info for template: " + template.TemplateId.ToString());
+                }
+            }
+            catch { Debug.WriteLine("SettingsViewModel - UH-OH, RemoveSecondaryTileInfo fucked up!"); }
         }
     }
 }

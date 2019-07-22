@@ -3,12 +3,15 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Revent.UWP.Activation;
+using Revent.UWP.Core.Models;
 using Revent.UWP.Helpers;
-
+using Revent.UWP.ViewModels;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.UI.Notifications;
 using Windows.UI.StartScreen;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Revent.UWP.Services
 {
@@ -67,10 +70,49 @@ namespace Revent.UWP.Services
             // If app is launched from a SecondaryTile, tile arguments property is contained in args.Arguments
             // var secondaryTileArguments = args.Arguments;
 
+            // First, let's convert the launch string to an interger
+            if (args.Arguments != "" && args.Arguments != null)
+            {
+                int templateId = Convert.ToInt32(args.Arguments);
+
+                MainViewModel vm = new MainViewModel();
+                try
+                {
+                    // Draw a frame
+                    Frame rootFrame = Window.Current.Content as Frame;
+                    if (rootFrame == null)
+                    {
+                        rootFrame = new Frame();
+                        Window.Current.Content = rootFrame;
+                    }
+                    if (rootFrame.Content == null)
+                    {
+                        rootFrame.Navigate(typeof(Views.EmptyPage));
+                    }
+                    Window.Current.Activate();
+
+
+
+
+                }
+                catch { }
+
+                // Set the selected template to the opened Template ID
+                TemplateModel model = vm.Templates.Where(t => t.TemplateId == templateId).FirstOrDefault();
+                vm.SelectedTemplate = model;
+
+                // Open the template on the calendar
+                vm.OpenTemplateCommand.Execute(null);
+
+                App.Current.Exit();
+            }
+
+
             // If app is launched from a LiveTile notification update, TileContent arguments property is contained in args.TileActivatedInfo.RecentlyShownNotifications
             // var tileUpdatesArguments = args.TileActivatedInfo.RecentlyShownNotifications;
             await Task.CompletedTask;
         }
+
 
         protected override bool CanHandleInternal(LaunchActivatedEventArgs args)
         {
@@ -81,7 +123,7 @@ namespace Revent.UWP.Services
         {
             // If app is launched from a SecondaryTile, tile arguments property is contained in args.Arguments
             // TODO WTS: Implement your own logic to determine if you can handle the SecondaryTile activation
-            return false;
+            return true;
         }
 
         private bool LaunchFromLiveTileUpdate(LaunchActivatedEventArgs args)

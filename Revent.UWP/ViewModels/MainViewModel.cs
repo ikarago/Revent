@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Toolkit.Uwp.Notifications;
 using Revent.UWP.Core.Models;
 using Revent.UWP.Helpers;
 using Revent.UWP.Services;
@@ -11,6 +12,8 @@ using Revent.UWP.Views.Dialogs;
 using Windows.ApplicationModel.Appointments;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Notifications;
+using Windows.UI.StartScreen;
 
 namespace Revent.UWP.ViewModels
 {
@@ -148,37 +151,37 @@ namespace Revent.UWP.ViewModels
             }
         }
 
-        private ICommand _pinTemplateToStart;
-        public ICommand PinTemplateToStart
+        private ICommand _pinTemplateToStartCommand;
+        public ICommand PinTemplateToStartCommand
         {
             get
             {
-                if (_pinTemplateToStart == null)
+                if (_pinTemplateToStartCommand == null)
                 {
-                    _pinTemplateToStart = new RelayCommand(
+                    _pinTemplateToStartCommand = new RelayCommand(
                         () =>
                         {
-                            // #TODO
+                            PinToStart();
                         });
                 }
-                return _pinTemplateToStart;
+                return _pinTemplateToStartCommand;
             }
         }
 
-        private ICommand _unpinTemplateToStart;
-        public ICommand UnpinTemplateToStart
+        private ICommand _unpinTemplateToStartCommand;
+        public ICommand UnpinTemplateToStartCommand
         {
             get
             {
-                if (_unpinTemplateToStart == null)
+                if (_unpinTemplateToStartCommand == null)
                 {
-                    _unpinTemplateToStart = new RelayCommand(
+                    _unpinTemplateToStartCommand = new RelayCommand(
                         () =>
                         {
                             // #TODO
                         });
                 }
-                return _unpinTemplateToStart;
+                return _unpinTemplateToStartCommand;
             }
         }
 
@@ -252,6 +255,9 @@ namespace Revent.UWP.ViewModels
             }
         }
 
+        /// <summary>
+        /// Edit Template
+        /// </summary>
         private async void EditTemplate()
         {
             TemplateModel originalTemplate = SelectedTemplate;
@@ -275,7 +281,10 @@ namespace Revent.UWP.ViewModels
         }
 
 
-        // Open Template
+        /// <summary>
+        /// Open Template on Calendar
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> OpenAppointmentOnCalendar()
         {
             bool success = false;
@@ -348,7 +357,9 @@ namespace Revent.UWP.ViewModels
             return success;
         }
 
-        // Import Template
+        /// <summary>
+        /// Import from .ics
+        /// </summary>
         private async void ImportTemplate()
         {
             // Get the user to select an .ics-file to import the information from
@@ -498,7 +509,9 @@ namespace Revent.UWP.ViewModels
         }
 
 
-        // Delete Templates
+        /// <summary>
+        /// Delete Template
+        /// </summary>
         private void DeleteTemplate()
         {
             Debug.WriteLine("MainViewModel - Delete Template... START");
@@ -522,8 +535,157 @@ namespace Revent.UWP.ViewModels
         }
 
         // Pin Templates
+        public void PinToStart()
+        {
+            PinTemplateToStart(SelectedTemplate);
+        }
 
 
+        private async void PinTemplateToStart(TemplateModel template)
+        {
+            // Check whether the tile has been pinned before...
+            if (!SecondaryTile.Exists(template.TemplateId.ToString()))
+            {
+                // Get assets (WARNING: It'll retrieve these from the base Revent-project!)
+                Uri square150x150Logo = new Uri("ms-appx:///Assets/Logo/Square150x150Logo.scale-100.png");
+                Uri square44x44Logo = new Uri("ms-appx:///Assets/Logo/Square44x44Logo.scale-100.png");
+                Uri square71x71Logo = new Uri("ms-appx:///Assets/Logo/Square71x71Logo.scale-100.png");
+                Uri wide310x150Logo = new Uri("ms-appx:///Assets/Logo/Wide310x150Logo.scale-100.png");
+                Uri square310x310Logo = new Uri("ms-appx:///Assets/Logo/Square310x310Logo.scale-100.png");
+
+                // Set the activation arguments for the secondary tile
+                string tileActivationArgs = template.TemplateId.ToString();
+
+                // Create the secondary tile...
+                SecondaryTile secTile = new SecondaryTile(template.TemplateId.ToString(),
+                                                          template.TemplateName,
+                                                          tileActivationArgs,
+                                                          square150x150Logo,
+                                                          TileSize.Square150x150);
+                secTile.VisualElements.ShowNameOnSquare150x150Logo = true;
+                secTile.VisualElements.ShowNameOnWide310x150Logo = true;
+                secTile.VisualElements.ShowNameOnSquare310x310Logo = true;
+                secTile.VisualElements.Square44x44Logo = square44x44Logo;
+                secTile.VisualElements.Square71x71Logo = square71x71Logo;
+                secTile.VisualElements.Wide310x150Logo = wide310x150Logo;
+                secTile.VisualElements.Square310x310Logo = square310x310Logo;
+
+                // And now pin it!
+                await secTile.RequestCreateAsync();
+
+                // Let's get the stuff and show it on the tile if the user wants that
+                var _localSettings = ApplicationData.Current.LocalSettings;
+                const string infoOnTiles = "MoreInfoOnTiles";
+
+                if (_localSettings.Values[infoOnTiles].ToString() == "true")
+                {
+                    // Try to make a Tile Notification
+                    try
+                    {
+                        TileContent content;
+
+                        if (template.AppointmentSubject != "" && template.AppointmentLocation != "")
+                        {
+                            // First, let's construct the Tiles
+                            content = new TileContent()
+                            {
+                                Visual = new TileVisual()
+                                {
+                                    Branding = TileBranding.NameAndLogo,
+                                    // The small tile, well uh, let's keep that sucker standard
+                                    // So let's edit with the Medium, Wide and Large-tiles and make these look awesome
+                                    // Medium
+                                    TileMedium = new TileBinding()
+                                    {
+                                        Content = new TileBindingContentAdaptive()
+                                        {
+                                            Children =
+                                            {
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.Caption,
+                                                    Text = template.AppointmentSubject
+                                                },
+
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.CaptionSubtle,
+                                                    HintWrap = true,
+                                                    HintMaxLines = 3,
+                                                    Text = template.AppointmentDetails
+                                                }
+                                            }
+                                        }
+                                    },
+                                    // Wide
+                                    TileWide = new TileBinding()
+                                    {
+                                        Content = new TileBindingContentAdaptive()
+                                        {
+                                            Children =
+                                             {
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.Body,
+                                                    Text = template.AppointmentSubject
+                                                },
+
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.CaptionSubtle,
+                                                    HintWrap = true,
+                                                    HintMaxLines = 3,
+                                                    Text = template.AppointmentDetails
+                                                }
+                                             }
+                                        }
+                                    },
+                                    // Large
+                                    TileLarge = new TileBinding()
+                                    {
+                                        Content = new TileBindingContentAdaptive()
+                                        {
+                                            Children =
+                                            {
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.Subtitle,
+                                                    Text = template.AppointmentSubject
+                                                },
+
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.CaptionSubtle,
+                                                    HintWrap = true,
+                                                    Text = template.AppointmentLocation
+                                                },
+
+                                                new AdaptiveText()
+                                                {
+                                                    HintStyle = AdaptiveTextStyle.Caption,
+                                                    HintWrap = true,
+                                                    Text = template.AppointmentDetails
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            };  // END OF NORMAL-TILE
+
+                            // Now, let's turn the code into a tile notification
+                            var tileNotification = new TileNotification(content.GetXml());
+                            // Now try to give it a tag, in case the tile needs to be updated
+                            try { tileNotification.Tag = template.TemplateId.ToString(); }
+                            catch { Debug.WriteLine("Could not give Secondary Live Tile an ID"); } // In case stuff fuck up, it won't add the ID to the Tile notification
+
+                            // And show the new Tile Notification!
+                            TileUpdateManager.CreateTileUpdaterForSecondaryTile(template.TemplateId.ToString()).Update(tileNotification);
+                        }
+                    }
+                    catch { Debug.WriteLine("Could not create Secondary Live Tile"); }
+                }
+            }
+        }
 
         /// <summary>
         /// Opens the Settings Dialog
