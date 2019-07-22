@@ -113,6 +113,12 @@
                                                FontFamily="Segoe MDL2 Assets"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"/>
+                                    <!-- FOR DEBUGGING -->
+                                    <!--<TextBlock Text="{x:Bind TemplateId, Mode=OneWay}"
+                                               Visibility="Visible"
+                                               Style="{ThemeResource TitleTextBlockStyle}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>-->
                                 </Grid>
 
                                 <StackPanel Orientation="Vertical"
@@ -199,12 +205,13 @@
                     <Button Canvas.ZIndex="21"
                             Height="48"
                             Padding="12,8"
+                            Command="{x:Bind ViewModel.ImportTemplateCommand}"
                             Style="{ThemeResource ButtonRevealStyle}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{ThemeResource FluentFormIconStyle}"
                                            Margin="0"
-                                       Text="&#xE150;"/>
+                                           Text="&#xE150;"/>
                             </StackPanel>
                         </Button.Content>
                     </Button>

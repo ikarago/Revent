@@ -37,17 +37,17 @@ namespace Revent.UWP.Views.Dialogs
             this.InitializeComponent();
 
             // Set the title of the dialog
-            if (ViewModel.ExistingTemplate.TemplateId >= 1)
+            if (ViewModel.ExistingTemplate == null)
+            {
+                // Set as New Template
+            }
+            else if (ViewModel.ExistingTemplate.TemplateId >= 1)
             {
                 // Set as Edit Template
             }
             else if (ViewModel.ExistingTemplate.TemplateId == -1)
             {
                 // Set as Import Template
-            }
-            else
-            {
-                // Set as New Template
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Revent.UWP.Services;
 using Revent.UWP.Views.Dialogs;
 using Windows.ApplicationModel.Appointments;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 
 namespace Revent.UWP.ViewModels
 {
@@ -88,7 +90,7 @@ namespace Revent.UWP.ViewModels
                     _importTemplateCommand = new RelayCommand(
                         () =>
                         {
-                            // #TODO
+                            ImportTemplate();
                         });
                 }
                 return _importTemplateCommand;
@@ -239,12 +241,15 @@ namespace Revent.UWP.ViewModels
         private async void NewTemplate()
         {
             // Open the NewTemplate Dialog and get the TemplateModel made in there
-            NewTemplateDialog temp = new NewTemplateDialog();
-            await temp.ShowAsync();
-            TemplateModel model = temp.SavedTemplate;
+            NewTemplateDialog dialog = new NewTemplateDialog();
+            await dialog.ShowAsync();
 
-            // Add this model back to the Templates List for use
-            Templates.Add(model);
+            // Add this model back to the Templates List for use if the dialog wasn't cancelled
+            TemplateModel model = dialog.SavedTemplate;
+            if (model != null)
+            {
+                Templates.Add(model);
+            }
         }
 
         private async void EditTemplate()
@@ -253,15 +258,20 @@ namespace Revent.UWP.ViewModels
             TemplateModel updatedTemplate;
 
             // Open the NewTemplate Dialog and get the TemplateModel made in there
-            NewTemplateDialog temp = new NewTemplateDialog(originalTemplate);
-            await temp.ShowAsync();
-            updatedTemplate = temp.SavedTemplate;
+            NewTemplateDialog dialog = new NewTemplateDialog(originalTemplate);
+            await dialog.ShowAsync();
+            updatedTemplate = dialog.SavedTemplate;
 
-            // Remove the old template from the list
-            Templates.Remove(originalTemplate);
+            // Make sure the template has been updated
+            if (updatedTemplate != null)
+            {
+                // Remove the old template from the list
+                Templates.Remove(originalTemplate);
 
-            // Add this model back to the Templates List for use
-            Templates.Add(updatedTemplate);
+                // Add this model back to the Templates List for use
+                Templates.Add(updatedTemplate);
+            }
+
         }
 
 
@@ -338,8 +348,154 @@ namespace Revent.UWP.ViewModels
             return success;
         }
 
+        // Import Template
+        private async void ImportTemplate()
+        {
+            // Get the user to select an .ics-file to import the information from
+            StorageFile ics = null;
+            ImportModel import = null;
 
-        // Edit Templates
+            // Get the ICS to import:
+            try
+            {
+                ics = await GetIcsFile();
+            }
+            catch
+            {
+                Debug.WriteLine("MainViewModel - ImportTemplate - Failed to obtain .ics-file");
+            }
+
+            // Get the info from the .ics
+            import = await GetIcsDetails(ics);
+
+            // Create a new TemplateModel infused with the imported data
+            if (import != null)
+            {
+                TemplateModel template = new TemplateModel();
+
+                template.AppointmentSubject = import.ImportSubject;
+                template.AppointmentDetails = import.ImportDetails;
+                template.AppointmentLocation = import.ImportLocation;
+
+                // Set the ID to 0 so it'll recognise it and handle it as a Import model
+                template.TemplateId = -1;
+
+
+                // Open it in a TemplateEditor Dialog
+                NewTemplateDialog dialog = new NewTemplateDialog(template);
+                await dialog.ShowAsync();
+
+                // Add this model back to the Templates List for use if the dialog wasn't cancelled
+                TemplateModel model = dialog.SavedTemplate;
+                if (model != null)
+                {
+                    Templates.Add(model);
+                }
+            }
+            else
+            {
+                // #TODO Import unsuccessful, exit the method and display an error to the user
+            }
+        }
+
+        private async Task<StorageFile> GetIcsFile()
+        {
+            StorageFile icsFile = null;
+
+            // First open the FilePicker to get an ICS-file
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            openPicker.ViewMode = PickerViewMode.List;
+            openPicker.FileTypeFilter.Add(".ics");
+
+            try
+            {
+                // Try to get the StorageFile
+                icsFile = await openPicker.PickSingleFileAsync();
+            }
+            catch (Exception ex)
+            {
+                // #TODO Give an error in case of the user cancelling it
+                Debug.WriteLine("MainViewModel - GetIcsFile - Operation failed - " + ex);
+            }
+
+            return icsFile;
+        }
+        private async Task<ImportModel> GetIcsDetails(StorageFile ics)
+        {
+            ImportModel import = null;
+
+            if (ics != null)
+            {
+                string s_subject = "SUMMARY:";
+                string s_location = "LOCATION:";
+                string s_details = "DESCRIPTION:";
+
+                // Single use checks for screwed op ICS files
+                bool b_subject = false;
+                bool b_location = false;
+                bool b_details = false;
+
+
+                import = new ImportModel();
+
+                IList<string> contents = await FileIO.ReadLinesAsync(ics);
+                foreach (string line in contents)
+                {
+                    // Get Appointment Subject
+                    if (line.StartsWith(s_subject))
+                    {
+                        if (b_subject == false)
+                        {
+                            import.ImportSubject = GetCleanImportString(line, s_subject);
+                            b_subject = true;
+                        }
+                    }
+
+                    // Get Appointment Location
+                    if (line.StartsWith(s_location))
+                    {
+                        if (b_location == false)
+                        {
+                            import.ImportLocation = GetCleanImportString(line, s_location);
+                            b_location = true;
+                        }
+                    }
+
+                    // Get Appointment Details
+                    if (line.StartsWith(s_details))
+                    {
+                        if (b_details == false)
+                        {
+                            import.ImportDetails = GetCleanImportString(line, s_details);
+                            b_details = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Debug.WriteLine("MainViewModel - GetIcsDetails - Inserted StorageFile is empty");
+
+                // TODO - show error message to user
+            }
+
+            return import;
+        }
+
+        /// <summary>
+        /// Removes the headers of the lines so it leaves just the info needed in the string
+        /// </summary>
+        /// <param name="source">The original string</param>
+        /// <param name="remove">Texts that needs to be removed</param>
+        /// <returns>String without the removed text</returns>
+        private string GetCleanImportString(string source, string remove)
+        {
+            int index = source.IndexOf(remove);
+            string clean = source.Remove(index, remove.Length);
+
+            return clean;
+        }
 
 
         // Delete Templates

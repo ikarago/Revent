@@ -65,17 +65,6 @@ namespace Revent.UWP.ViewModels
             try
             {
                 savedModel = DatabaseService.Write(Template);
-
-                /*if (Template.TemplateId >= 1)
-                {
-                    // Update existing model
-
-                }
-                else
-                {
-                    // Create new Model
-                    saved
-                }*/
             }
             catch (Exception ex)
             {
