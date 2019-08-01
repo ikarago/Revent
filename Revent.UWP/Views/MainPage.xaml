@@ -15,7 +15,7 @@
                     Placement="Bottom">
             <MenuFlyoutItem Icon="Pin"
                             Text="Pin to Start"
-                            Visibility="Collapsed"
+                            Visibility="Visible"
                             Command="{x:Bind ViewModel.PinTemplateToStartCommand}"/>
             <MenuFlyoutItem Icon="UnPin"
                             Text="Unpin from Start"

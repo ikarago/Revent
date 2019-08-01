@@ -31,10 +31,6 @@ namespace Revent.UWP.Views.Dialogs
         {
             RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
             this.InitializeComponent();
-
-            // Theme trigger for the logo
-            this.ActualThemeChanged += AboutDialog_ActualThemeChanged;
-            CheckThemeForLogo();
         }
 
         private ICommand _closeDialogCommand;
@@ -54,26 +50,5 @@ namespace Revent.UWP.Views.Dialogs
             }
         }
 
-
-        // Methods
-        private void AboutDialog_ActualThemeChanged(FrameworkElement sender, object args)
-        {
-            CheckThemeForLogo();
-        }
-
-        private void CheckThemeForLogo()
-        {
-            // Change the displayed logo
-            if (ActualTheme == ElementTheme.Dark)
-            {
-                BitmapImage image = new BitmapImage(new Uri("ms-appx:///Assets/Logo/in-app/logo-white.png"));
-                imgLogo.Source = image;
-            }
-            else if (ActualTheme == ElementTheme.Light)
-            {
-                BitmapImage image = new BitmapImage(new Uri("ms-appx:///Assets/Logo/in-app/logo-black.png"));
-                imgLogo.Source = image;
-            }
-        }
     }
 }
