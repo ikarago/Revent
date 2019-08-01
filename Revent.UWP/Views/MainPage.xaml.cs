@@ -6,35 +6,48 @@ using Revent.UWP.Views.Dialogs;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace Revent.UWP.Views
 {
     public sealed partial class MainPage : Page
     {
-        public MainViewModel ViewModel;
+        // Properties
+        public MainViewModel ViewModel { get; } = new MainViewModel();
 
+
+        // Constructor
         public MainPage()
         {
             InitializeComponent();
+
+            // Add the check for the logo
+            this.ActualThemeChanged += MainPage_ActualThemeChanged;
+            CheckThemeForLogo();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+
+        // Methods
+        private void MainPage_ActualThemeChanged(FrameworkElement sender, object args)
         {
-            // Check if there an parameter with a templateId has been passed when navigating to this
-            if (e.Parameter != null && e.Parameter != "")
-            {
-                // If so, set MainViewModel with the parameter so it automatically opens with the template from the secondary tile
-                ViewModel = new MainViewModel((int)e.Parameter);
-            }
-            else
-            {
-                ViewModel = new MainViewModel();
-            }
-
-            
+            CheckThemeForLogo();
         }
 
+        private void CheckThemeForLogo()
+        {
+            // Change the displayed logo
+            if (ActualTheme == ElementTheme.Dark)
+            {
+                BitmapImage image = new BitmapImage(new Uri("ms-appx:///Assets/Logo/Square44x44Logo.altform-unplated_targetsize-256.png"));
+                imgAppIcon.Source = image;
+            }
+            else if (ActualTheme == ElementTheme.Light)
+            {
+                BitmapImage image = new BitmapImage(new Uri("ms-appx:///Assets/Logo/Square44x44Logo.altform-lightunplated_targetsize-256.png"));
+                imgAppIcon.Source = image;
+            }
+        }
 
         private void LvItemTemplates_ItemClick(object sender, ItemClickEventArgs e)
         {
