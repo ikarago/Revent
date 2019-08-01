@@ -72,7 +72,7 @@
                     </Grid>
 
                     <!-- About Description -->
-                    <TextBlock Text="Revent, created and programmed by Ikarago, 2018-2019"
+                    <TextBlock Text="Revent, created and programmed by Ikarago, 2016-2019"
                                x:Uid="About_Description"
                                TextWrapping="Wrap"
                                Margin="{StaticResource XSmallTopMargin}"/>
@@ -126,9 +126,9 @@
                                      NavigateUri="https://github.com/windows-toolkit/WindowsCommunityToolkit"/>
 
                     <!-- FluBase -->
-                    <HyperlinkButton x:Uid="About_AcknowledgementsFlubase"
-                                     Content="FluBase"
-                                     NavigateUri="https://github.com/ikarago/FluBase"/>
+                    <HyperlinkButton x:Uid="About_AcknowledgementsFlui"
+                                     Content="FLUI Framework"
+                                     NavigateUri="https://github.com/Team-FLUI/FluiFramework"/>
                 </StackPanel>
 
 
@@ -161,7 +161,7 @@
         </ScrollViewer>
 
         <!-- Dialog background icon -->
-        <Image x:Name="imgLogo"
+        <!--<Image x:Name="imgLogo"
                Grid.Row="1"
                Source="ms-appx:///Assets/Logo/in-app/logo-white.png" 
                Height="72"
@@ -169,11 +169,11 @@
                Opacity="0.25"
                Visibility="Visible"
                HorizontalAlignment="Right"
-               VerticalAlignment="Bottom"/>
+               VerticalAlignment="Bottom"/>-->
 
         <FontIcon Grid.Row="1"
                   Canvas.ZIndex="5"
-                  Visibility="Collapsed"
+                  Visibility="Visible"
                   Glyph="&#xE946;"
                   FontSize="72"
                   Foreground="{ThemeResource SystemControlForegroundBaseLowBrush}"

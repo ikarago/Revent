@@ -79,6 +79,7 @@
                     <TextBox Grid.Column="1"
                              PlaceholderText="Template name"
                              HorizontalAlignment="Stretch"
+                             TextWrapping="Wrap"
                              Text="{x:Bind ViewModel.Template.TemplateName, Mode=TwoWay}"
                              Style="{ThemeResource FluentTextBoxStyle}"/>
                 </Grid>
@@ -99,6 +100,7 @@
                     <TextBox Grid.Column="1"
                              PlaceholderText="Subject"
                              HorizontalAlignment="Stretch"
+                             TextWrapping="Wrap"
                              Text="{x:Bind ViewModel.Template.AppointmentSubject, Mode=TwoWay}"
                              Style="{ThemeResource FluentTextBoxStyle}"/>
                 </Grid>
@@ -120,6 +122,7 @@
                     <TextBox Grid.Column="1"
                              PlaceholderText="Location"
                              HorizontalAlignment="Stretch"
+                             TextWrapping="Wrap"
                              Text="{x:Bind ViewModel.Template.AppointmentLocation, Mode=TwoWay}"
                              Style="{ThemeResource FluentTextBoxStyle}"/>
                 </Grid>
@@ -186,6 +189,7 @@
                              PlaceholderText="Details"
                              HorizontalAlignment="Stretch"
                              AcceptsReturn="True"
+                             TextWrapping="Wrap"
                              Text="{x:Bind ViewModel.Template.AppointmentDetails, Mode=TwoWay}"
                              Style="{ThemeResource FluentTextBoxStyle}"/>
                 </Grid>
