@@ -160,9 +160,6 @@
     <Compile Include="Views\Dialogs\WhatsNewDialog.xaml.cs">
       <DependentUpon>WhatsNewDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SecondaryLiveTileLaunchPage.xaml.cs">
-      <DependentUpon>SecondaryLiveTileLaunchPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -230,10 +227,6 @@
     <Page Include="Views\Dialogs\WhatsNewDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\SecondaryLiveTileLaunchPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

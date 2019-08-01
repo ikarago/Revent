@@ -73,7 +73,7 @@ namespace Revent.UWP.Services
             {
                 int templateId = Convert.ToInt32(args.Arguments);
 
-                NavigationService.Navigate(typeof(Views.SecondaryLiveTileLaunchPage), templateId);
+                NavigationService.Navigate(typeof(Views.MainPage), templateId);
             }
 
             // If app is launched from a LiveTile notification update, TileContent arguments property is contained in args.TileActivatedInfo.RecentlyShownNotifications

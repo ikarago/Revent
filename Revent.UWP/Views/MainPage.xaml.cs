@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Revent.UWP.Core.Models;
+using Revent.UWP.Services;
 using Revent.UWP.ViewModels;
 using Revent.UWP.Views.Dialogs;
 using Windows.UI.Xaml;
@@ -14,7 +15,7 @@ namespace Revent.UWP.Views
     public sealed partial class MainPage : Page
     {
         // Properties
-        public MainViewModel ViewModel { get; } = new MainViewModel();
+        public MainViewModel ViewModel;
 
 
         // Constructor
@@ -25,6 +26,25 @@ namespace Revent.UWP.Views
             // Add the check for the logo
             this.ActualThemeChanged += MainPage_ActualThemeChanged;
             CheckThemeForLogo();
+        }
+
+
+        // Navigation Overrides
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            // Check if there an parameter with a templateId has been passed when navigating to this
+            if (e.Parameter != null && e.Parameter != "")
+            {
+                // If so, set MainViewModel with the parameter so it automatically opens with the template from the secondary tile
+                ViewModel = new MainViewModel((int)e.Parameter);
+
+                // Hide all Main elements and display a black Grid with a progressring
+                gridSecondaryLiveTileLaunch.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ViewModel = new MainViewModel();
+            }
         }
 
 

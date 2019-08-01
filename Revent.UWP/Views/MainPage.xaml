@@ -249,5 +249,30 @@
 
             </tkc:DropShadowPanel>
         </Grid>
+
+        <!-- Secondary Live Tile Launch stuff -->
+        <Grid x:Name="gridSecondaryLiveTileLaunch"
+              Grid.Row="1"
+              Canvas.ZIndex="200"
+              Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+              Visibility="Collapsed">
+            <!-- Load stuff -->
+            <StackPanel Grid.Row="1"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <ProgressRing Height="72"
+                              Width="72"
+                              IsActive="True"
+                              HorizontalAlignment="Center"/>
+                <TextBlock Text="Loading..."
+                           HorizontalAlignment="Center"
+                           Margin="0,24,0,8"/>
+                <Button Content="Cancel"
+                        HorizontalAlignment="Center"
+                        Visibility="Collapsed"
+                        Style="{ThemeResource TextBlockButtonStyle}" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>
