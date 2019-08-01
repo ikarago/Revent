@@ -68,45 +68,13 @@ namespace Revent.UWP.Services
         protected override async Task HandleInternalAsync(LaunchActivatedEventArgs args)
         {
             // If app is launched from a SecondaryTile, tile arguments property is contained in args.Arguments
-            // var secondaryTileArguments = args.Arguments;
-
             // First, let's convert the launch string to an interger
             if (args.Arguments != "" && args.Arguments != null)
             {
                 int templateId = Convert.ToInt32(args.Arguments);
 
-                MainViewModel vm = new MainViewModel();
-                try
-                {
-                    // Draw a frame
-                    Frame rootFrame = Window.Current.Content as Frame;
-                    if (rootFrame == null)
-                    {
-                        rootFrame = new Frame();
-                        Window.Current.Content = rootFrame;
-                    }
-                    if (rootFrame.Content == null)
-                    {
-                        rootFrame.Navigate(typeof(Views.EmptyPage));
-                    }
-                    Window.Current.Activate();
-
-
-
-
-                }
-                catch { }
-
-                // Set the selected template to the opened Template ID
-                TemplateModel model = vm.Templates.Where(t => t.TemplateId == templateId).FirstOrDefault();
-                vm.SelectedTemplate = model;
-
-                // Open the template on the calendar
-                vm.OpenTemplateCommand.Execute(null);
-
-                App.Current.Exit();
+                NavigationService.Navigate(typeof(Views.MainPage), templateId);
             }
-
 
             // If app is launched from a LiveTile notification update, TileContent arguments property is contained in args.TileActivatedInfo.RecentlyShownNotifications
             // var tileUpdatesArguments = args.TileActivatedInfo.RecentlyShownNotifications;

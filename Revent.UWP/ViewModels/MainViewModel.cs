@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Toolkit.Uwp.Notifications;
@@ -45,9 +46,19 @@ namespace Revent.UWP.ViewModels
 
 
         // Constructor
-        public MainViewModel()
+        public MainViewModel(int templateId = -1)
         {
             Initialize();
+
+            if (templateId != -1)
+            {
+                // Set the selected template to the opened Template ID
+                TemplateModel model = Templates.Where(t => t.TemplateId == templateId).FirstOrDefault();
+                SelectedTemplate = model;
+
+                // Open the app from a secondary tile
+                OpenTemplateFromSecondaryTileAsync();
+            }
         }
         // Initialize
         private void Initialize()
@@ -63,7 +74,14 @@ namespace Revent.UWP.ViewModels
             _selectedTemplate = null;
         }
 
+        private async void OpenTemplateFromSecondaryTileAsync()
+        {
+            // Open the template on the calendar
+            await OpenAppointmentOnCalendar();
 
+            // Close the app
+            App.Current.Exit();
+        }
 
         // Commands
         private ICommand _newTemplateCommand;

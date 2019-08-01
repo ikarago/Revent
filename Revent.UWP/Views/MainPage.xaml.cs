@@ -6,18 +6,35 @@ using Revent.UWP.Views.Dialogs;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Navigation;
 
 namespace Revent.UWP.Views
 {
     public sealed partial class MainPage : Page
     {
-        public MainViewModel ViewModel { get; } = new MainViewModel();
+        public MainViewModel ViewModel;
 
         public MainPage()
         {
             InitializeComponent();
-
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            // Check if there an parameter with a templateId has been passed when navigating to this
+            if (e.Parameter != null && e.Parameter != "")
+            {
+                // If so, set MainViewModel with the parameter so it automatically opens with the template from the secondary tile
+                ViewModel = new MainViewModel((int)e.Parameter);
+            }
+            else
+            {
+                ViewModel = new MainViewModel();
+            }
+
+            
+        }
+
 
         private void LvItemTemplates_ItemClick(object sender, ItemClickEventArgs e)
         {
