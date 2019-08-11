@@ -24,7 +24,7 @@ namespace Revent.UWP.Services
             //Windows.Storage.ApplicationData.Current.ClearAsync();
 
             // Now create the tables and such required for the dbase
-            if (!CheckFileExists("db_v1.sqlite").Result)
+            if (!CheckFileExistsLocalAsync("db_v1.sqlite").Result)
             {
                 Debug.WriteLine("DatabaseService - Create database");
                 using (var db = new SQLiteConnection(DB_PATH_L))
@@ -34,10 +34,85 @@ namespace Revent.UWP.Services
             }
         }
 
-        // #TODO Import old data from roaming and put it into local
+        /// <summary>
+        /// Migrate data from the classic app (in the roaming folder) to the local folder
+        /// </summary>
+        /// <returns>Returns bool indicating data has been migrated in this session</returns>
+        public static bool MigrateFromReventClassic()
+        {
+            // Check if an migration already has been done
+            // This has been set to true by default. If the setting catch fails (because it doesn't exist yet) we know it can't have any migrated data as this setting only gets written at the end of the sequence
+            bool alreadyMigrated = true;
+
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            try
+            {
+                string alreadyMigratedString = localSettings.Values["AlreadyMigratedFromClassic"] as string;
+                if (alreadyMigratedString != "" && alreadyMigratedString != null)
+                {
+                    alreadyMigrated = Convert.ToBoolean(alreadyMigratedString);
+                }
+            }
+            catch { alreadyMigrated = false; }
+
+            // If the data hasn't been migrated yet then migrate the data
+            if (alreadyMigrated == false)
+            {
+                // Check if an Roaming database file exists
+                if (!CheckFileExistsRoamingAsync("db_v1.sqlite").Result)
+                {
+                    Debug.WriteLine("DatabaseService - Migrating database...");
+
+                    // Get the old templates
+                    ObservableCollection<TemplateModel> roamingTemplateList = new ObservableCollection<TemplateModel>();
+
+                    // Load data from the dbase. These will be transformed into an ViewModel by the ManagerViewModel
+                    using (var db = new SQLiteConnection(DB_PATH_R))
+                    {
+                        var query = db.Table<TemplateModel>().OrderBy(c => c.TemplateId);
+                        foreach (var template in query)
+                        {
+                            roamingTemplateList.Add(template);
+                        }
+                    }
+
+
+                    // Save all templates to the new local database
+                    Debug.WriteLine("DatabaseService - Writing old templates to new local database...");
+
+                    foreach (var template in roamingTemplateList)
+                    {
+                        DatabaseService.Write(template);
+                    }
+
+
+                    // Set local settings bool for successful migration to true
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["AlreadyMigratedFromClassic"] = true;
+                    Debug.WriteLine("DatabaseService - Migration successfull! :)");
+
+
+                    // #INFO: I've decided to not delete the old Roaming database by default. This is so if people are still running the old app they are still able to run it fine on older devices.
+                    // Also, if they use the app on multiple devices then they're able to keep their templates on all devices instead of only 1 device.
+                    return true;
+                }
+                else { return false; }
+            }
+            else { return false; }
+        }
 
         // More database shiz. Now to check whether the dbase file already exists or not.
-        private static async Task<bool> CheckFileExists(string fileName)
+        private static async Task<bool> CheckFileExistsLocalAsync(string fileName)
+        {
+            try
+            {
+                var store = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
+                return true;
+            }
+            catch
+            { }
+            return false;
+        }
+        private static async Task<bool> CheckFileExistsRoamingAsync(string fileName)
         {
             try
             {
@@ -45,10 +120,10 @@ namespace Revent.UWP.Services
                 return true;
             }
             catch
-            {
-            }
+            { }
             return false;
         }
+
 
         // Other shiz
         // Load templates from database
