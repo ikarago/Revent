@@ -15,16 +15,20 @@ namespace Revent.UWP.Services
     public static class DatabaseService
     {
         // Static properties
-        public static string DB_PATH_L = Path.Combine(ApplicationData.Current.LocalFolder.Path, "db_v1.sqlite");
-        public static string DB_PATH_R = Path.Combine(ApplicationData.Current.RoamingFolder.Path, "db_v1.sqlite");
+        private static string DB_FILE_V1 = "db_v1.sqlite";
+        public static string DB_PATH_L = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILE_V1);
+        public static string DB_PATH_R = Path.Combine(ApplicationData.Current.RoamingFolder.Path, DB_FILE_V1);
 
+        /// <summary>
+        /// Creates a new database if it doesn't exist yet
+        /// </summary>
         public static void CreateDatabase()
         {
             // DEBUG: Amnesia mode
             //Windows.Storage.ApplicationData.Current.ClearAsync();
 
             // Now create the tables and such required for the dbase
-            if (!CheckFileExistsLocalAsync("db_v1.sqlite").Result)
+            if (!CheckFileExistsLocalAsync(DB_FILE_V1).Result)
             {
                 Debug.WriteLine("DatabaseService - Create database");
                 using (var db = new SQLiteConnection(DB_PATH_L))
@@ -48,18 +52,20 @@ namespace Revent.UWP.Services
             try
             {
                 string alreadyMigratedString = localSettings.Values["AlreadyMigratedFromClassic"] as string;
-                if (alreadyMigratedString != "" && alreadyMigratedString != null)
+                if (alreadyMigratedString == "true")
                 {
                     alreadyMigrated = Convert.ToBoolean(alreadyMigratedString);
                 }
+                else { alreadyMigrated = false; }
             }
             catch { alreadyMigrated = false; }
+
 
             // If the data hasn't been migrated yet then migrate the data
             if (alreadyMigrated == false)
             {
                 // Check if an Roaming database file exists
-                if (!CheckFileExistsRoamingAsync("db_v1.sqlite").Result)
+                if (CheckFileExistsRoamingAsync(DB_FILE_V1).Result)
                 {
                     Debug.WriteLine("DatabaseService - Migrating database...");
 
@@ -87,7 +93,7 @@ namespace Revent.UWP.Services
 
 
                     // Set local settings bool for successful migration to true
-                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["AlreadyMigratedFromClassic"] = true;
+                    localSettings.Values["AlreadyMigratedFromClassic"] = "true";
                     Debug.WriteLine("DatabaseService - Migration successfull! :)");
 
 
@@ -100,7 +106,11 @@ namespace Revent.UWP.Services
             else { return false; }
         }
 
-        // More database shiz. Now to check whether the dbase file already exists or not.
+        /// <summary>
+        /// Checks whether the given file exists in the local folder
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         private static async Task<bool> CheckFileExistsLocalAsync(string fileName)
         {
             try
@@ -112,6 +122,11 @@ namespace Revent.UWP.Services
             { }
             return false;
         }
+        /// <summary>
+        /// Checks whether the given file exists in the roaming folder
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         private static async Task<bool> CheckFileExistsRoamingAsync(string fileName)
         {
             try
@@ -125,8 +140,10 @@ namespace Revent.UWP.Services
         }
 
 
-        // Other shiz
-        // Load templates from database
+        /// <summary>
+        /// Gets the templates saved in the database
+        /// </summary>
+        /// <returns>Returns templates as TemplateModels in an ObservableCollection</returns>
         public static ObservableCollection<TemplateModel> GetTemplates()
         {
             Debug.WriteLine("Database Service: Getting templates");
@@ -146,7 +163,12 @@ namespace Revent.UWP.Services
             return templateList;
         }
 
-        // Write changes to database
+
+        /// <summary>
+        /// Writes the given TemplateModel to the database and returns the same model with an ID written to it
+        /// </summary>
+        /// <param name="template"></param>
+        /// <returns></returns>
         public static TemplateModel Write(TemplateModel template)
         {
             Debug.WriteLine("Database Service: Saving template... ");
@@ -195,7 +217,10 @@ namespace Revent.UWP.Services
             return template;
         }
 
-        // Delete data from database
+        /// <summary>
+        /// Removes the given TemplateModel from the database
+        /// </summary>
+        /// <param name="template"></param>
         public static void Delete(TemplateModel template)
         {
             Debug.WriteLine("Database Service: Deleting Template: Id = " + template.TemplateId + " + Name = " + template.TemplateName);
@@ -237,6 +262,9 @@ namespace Revent.UWP.Services
 
         }
 
+        /// <summary>
+        /// Drops all data of the app (pretty much for a hard reset)
+        /// </summary>
         public async static void DropAllData()
         {
             try
@@ -246,6 +274,9 @@ namespace Revent.UWP.Services
             catch { }
         }
 
+        /// <summary>
+        /// Optimizes database by compacting the size of the database
+        /// </summary>
         public async static void OptimizeDatabase()
         {
             try
