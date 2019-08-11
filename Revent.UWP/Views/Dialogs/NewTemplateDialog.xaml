@@ -31,12 +31,9 @@
             <TextBlock Text="New template"
                        Style="{ThemeResource FluentSubheaderTextStyle}"
                        RelativePanel.AlignVerticalCenterWithPanel="True"/>
-            <Button Content="&#xE106;"
-                    Background="Transparent"
-                    FontFamily="Segoe MDL2 Assets"
+            <Button Style="{ThemeResource FluentDialogButtonCloseStyle}"
                     Height="40"
                     Width="40"
-                    CornerRadius="{StaticResource FluentButtonCorners}"
                     RelativePanel.AlignRightWithPanel="True"
                     Command="{x:Bind CloseDialogCommand}">
                 <Button.KeyboardAccelerators>

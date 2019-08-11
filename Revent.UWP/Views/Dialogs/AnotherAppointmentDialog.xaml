@@ -32,13 +32,7 @@
             <TextBlock Text="Another one?"
                        Style="{ThemeResource FluentSubheaderTextStyle}"
                        RelativePanel.AlignVerticalCenterWithPanel="True"/>
-            <Button Content="&#xE106;"
-                    Background="Transparent"
-                    FontFamily="Segoe MDL2 Assets"
-                    Height="40"
-                    Width="40"             
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    CornerRadius="{ThemeResource FluentButtonCorners}"
+            <Button Style="{ThemeResource FluentDialogButtonCloseStyle}"
                     RelativePanel.AlignRightWithPanel="True"
                     Command="{x:Bind CloseCommand}">
                 <Button.KeyboardAccelerators>
