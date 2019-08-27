@@ -66,58 +66,84 @@
             <!-- One More button -->
             <Button Padding="12,6"
                     HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Left"
-                    Background="{ThemeResource SystemControlBackgroundAccentBrush}"
-                    RequestedTheme="Dark"
+                    HorizontalContentAlignment="Stretch"
+                    Background="Transparent"
+                    Margin="0,0,0,8"
                     Style="{ThemeResource ButtonRevealStyle}"
                     CornerRadius="{ThemeResource FluentButtonCorners}"
                     Command="{x:Bind OneMoreCommand}">
                 <Button.Content>
-                    <StackPanel MinWidth="128"
-                                MinHeight="32"
-                                Orientation="Horizontal">
-                        <TextBlock Text="&#xE149;"
+                    <Grid MinWidth="128"
+                          MinHeight="32">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="&#xE149;"
                                    FontFamily="Segoe MDL2 Assets"
                                    Style="{ThemeResource SubtitleTextBlockStyle}"
                                    Padding="0,0,12,0"
                                    VerticalAlignment="Center"/>
-                        <TextBlock x:Uid="ExitConfirmation-Yes"
-                                   Text="Yes, one more"
+                        <TextBlock Grid.Column="1"
+                                   Text="Create another appointment"
                                    VerticalAlignment="Center"/>
-                    </StackPanel>
+                        <TextBlock Grid.Column="2"
+                                   Text="C"
+                                   VerticalAlignment="Center"
+                                   Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                   Style="{ThemeResource FluentCaptionTextStyle}"/>
+                    </Grid>
                 </Button.Content>
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Modifiers="None"
                                          Key="Y" />
                 </Button.KeyboardAccelerators>
+                <ToolTipService.ToolTip>
+                    <ToolTip Visibility="Collapsed" />
+                </ToolTipService.ToolTip>
             </Button>
 
             <!-- Cancel button -->
             <Button Padding="12,6"
                     HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Left"
+                    HorizontalContentAlignment="Stretch"
                     Background="Transparent"
                     Style="{ThemeResource ButtonRevealStyle}"
                     CornerRadius="{ThemeResource FluentButtonCorners}"
                     Command="{x:Bind CancelCommand}">
                 <Button.Content>
-                    <StackPanel MinWidth="128"
-                                MinHeight="32"
-                                Orientation="Horizontal">
-                        <TextBlock Text="&#xE10A;"
+                    <Grid MinWidth="128"
+                          MinHeight="32">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="&#xE129;"
                                    FontFamily="Segoe MDL2 Assets"
                                    Style="{ThemeResource SubtitleTextBlockStyle}"
                                    Padding="0,0,12,0"
                                    VerticalAlignment="Center"/>
-                        <TextBlock x:Uid="ExitConfirmation-No"
-                                   Text="No, I'm done"
+                        <TextBlock Grid.Column="1"
+                                   Text="I'm done"
                                    VerticalAlignment="Center"/>
-                    </StackPanel>
+                        <TextBlock Grid.Column="2"
+                                   Text="F"
+                                   VerticalAlignment="Center"
+                                   Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                   Style="{ThemeResource FluentCaptionTextStyle}"/>
+                    </Grid>
                 </Button.Content>
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Modifiers="None"
                                          Key="N" />
                 </Button.KeyboardAccelerators>
+                <ToolTipService.ToolTip>
+                    <ToolTip Visibility="Collapsed" />
+                </ToolTipService.ToolTip>
             </Button>
 
         </StackPanel>
