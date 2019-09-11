@@ -79,9 +79,13 @@
             <!-- Searchbar -->
             <Grid Grid.Row="0"
                   Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+                <TextBlock Text="My Templates"
+                           Margin="12"
+                           Style="{ThemeResource FluentTitleTextStyle}" />
                 <TextBox Grid.Row="0"
                          PlaceholderText="Search"
                          Margin="12"
+                         Visibility="Collapsed"
                          Style="{ThemeResource FluentTextBoxStyle}" />
             </Grid>
 
