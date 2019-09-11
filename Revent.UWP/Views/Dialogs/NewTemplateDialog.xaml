@@ -77,8 +77,7 @@
                              PlaceholderText="Template name"
                              HorizontalAlignment="Stretch"
                              TextWrapping="Wrap"
-                             Text="{x:Bind ViewModel.Template.TemplateName, Mode=TwoWay}"
-                             Style="{ThemeResource FluentTextBoxStyle}"/>
+                             Text="{x:Bind ViewModel.Template.TemplateName, Mode=TwoWay}"/>
                 </Grid>
 
                 <!-- 1 - Subject -->
@@ -98,8 +97,7 @@
                              PlaceholderText="Subject"
                              HorizontalAlignment="Stretch"
                              TextWrapping="Wrap"
-                             Text="{x:Bind ViewModel.Template.AppointmentSubject, Mode=TwoWay}"
-                             Style="{ThemeResource FluentTextBoxStyle}"/>
+                             Text="{x:Bind ViewModel.Template.AppointmentSubject, Mode=TwoWay}"/>
                 </Grid>
 
                 <!-- 2 - Location -->
@@ -120,8 +118,7 @@
                              PlaceholderText="Location"
                              HorizontalAlignment="Stretch"
                              TextWrapping="Wrap"
-                             Text="{x:Bind ViewModel.Template.AppointmentLocation, Mode=TwoWay}"
-                             Style="{ThemeResource FluentTextBoxStyle}"/>
+                             Text="{x:Bind ViewModel.Template.AppointmentLocation, Mode=TwoWay}"/>
                 </Grid>
 
                 <!-- 3 - Time -->
@@ -146,12 +143,10 @@
 
                     <TextBox Grid.Column="2"
                              PlaceholderText="30"
+                             Text="{x:Bind ViewModel.Template.AppointmentDuration, Mode=TwoWay}"
                              HorizontalAlignment="Stretch"
-                             BorderThickness="1"
-                             Padding="12,6"
                              MaxLength="3"
-                             Height="32"
-                             CornerRadius="2"/>
+                             Height="32"/>
 
                     <ComboBox Grid.Column="3"
                               SelectedIndex="0"
@@ -193,8 +188,7 @@
                              HorizontalAlignment="Stretch"
                              AcceptsReturn="True"
                              TextWrapping="Wrap"
-                             Text="{x:Bind ViewModel.Template.AppointmentDetails, Mode=TwoWay}"
-                             Style="{ThemeResource FluentTextBoxStyle}"/>
+                             Text="{x:Bind ViewModel.Template.AppointmentDetails, Mode=TwoWay}"/>
                 </Grid>
 
 

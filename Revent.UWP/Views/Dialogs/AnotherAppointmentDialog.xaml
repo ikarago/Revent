@@ -98,7 +98,7 @@
                 </Button.Content>
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Modifiers="None"
-                                         Key="Y" />
+                                         Key="C" />
                 </Button.KeyboardAccelerators>
                 <ToolTipService.ToolTip>
                     <ToolTip Visibility="Collapsed" />
@@ -139,7 +139,7 @@
                 </Button.Content>
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Modifiers="None"
-                                         Key="N" />
+                                         Key="F" />
                 </Button.KeyboardAccelerators>
                 <ToolTipService.ToolTip>
                     <ToolTip Visibility="Collapsed" />
