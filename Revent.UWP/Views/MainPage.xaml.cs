@@ -35,11 +35,15 @@ namespace Revent.UWP.Views
             // Check if there an parameter with a templateId has been passed when navigating to this
             if (e.Parameter != null && e.Parameter != "")
             {
-                // If so, set MainViewModel with the parameter so it automatically opens with the template from the secondary tile
-                ViewModel = new MainViewModel((int)e.Parameter);
+                try
+                {
+                    // If so, set MainViewModel with the parameter so it automatically opens with the template from the secondary tile
+                    ViewModel = new MainViewModel((int)e.Parameter);
 
-                // Hide all Main elements and display a black Grid with a progressring
-                gridSecondaryLiveTileLaunch.Visibility = Visibility.Visible;
+                    // Hide all Main elements and display a black Grid with a progressring
+                    gridSecondaryLiveTileLaunch.Visibility = Visibility.Visible;
+                }
+                catch { ViewModel = new MainViewModel(); }
             }
             else
             {

@@ -584,7 +584,7 @@ namespace Revent.UWP.ViewModels
                 secTile.VisualElements.ShowNameOnWide310x150Logo = true;
                 secTile.VisualElements.ShowNameOnSquare310x310Logo = true;
                 secTile.VisualElements.Square44x44Logo = square44x44Logo;
-                secTile.VisualElements.Square71x71Logo = square71x71Logo;
+                secTile.VisualElements.Square71x71Logo = square71x71Logo;   // #TODO Is missing
                 secTile.VisualElements.Wide310x150Logo = wide310x150Logo;
                 secTile.VisualElements.Square310x310Logo = square310x310Logo;
 

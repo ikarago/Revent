@@ -15,20 +15,23 @@ namespace Revent.UWP.Services
     public static class DatabaseService
     {
         // Static properties
-        private static string DB_FILE_V1 = "db_v1.sqlite";
+        private static string DB_FILE_V1 = "db_v1_2.sqlite";
         public static string DB_PATH_L = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILE_V1);
         public static string DB_PATH_R = Path.Combine(ApplicationData.Current.RoamingFolder.Path, DB_FILE_V1);
 
         /// <summary>
         /// Creates a new database if it doesn't exist yet
         /// </summary>
-        public static void CreateDatabase()
+        public async static Task<bool> CreateDatabase()
         {
             // DEBUG: Amnesia mode
             //Windows.Storage.ApplicationData.Current.ClearAsync();
 
             // Now create the tables and such required for the dbase
-            if (!CheckFileExistsLocalAsync(DB_FILE_V1).Result)
+            bool dbaseExists = await CheckFileExistsLocalAsync(DB_FILE_V1);
+
+            //if (!CheckFileExistsLocalAsync(DB_FILE_V1).Result)
+            if (!dbaseExists)
             {
                 Debug.WriteLine("DatabaseService - Create database");
                 using (var db = new SQLiteConnection(DB_PATH_L))
@@ -36,6 +39,8 @@ namespace Revent.UWP.Services
                     db.CreateTable<TemplateModel>();
                 }
             }
+
+            return true;
         }
 
         /// <summary>

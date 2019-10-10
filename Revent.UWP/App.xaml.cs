@@ -26,9 +26,14 @@ namespace Revent.UWP
             EnteredBackground += App_EnteredBackground;
             Resuming += App_Resuming;
 
-            DatabaseService.CreateDatabase();
+            Initialize();
+        }
+
+        private async void Initialize()
+        {
+            await DatabaseService.CreateDatabase();
             // Make sure this method doesn't crash the app in the long term by making it hang for some stupid reason
-            DatabaseService.MigrateFromReventClassic();
+            //DatabaseService.MigrateFromReventClassic();
             SetSettings();
 
             // Deferred execution until used. Check https://msdn.microsoft.com/library/dd642331(v=vs.110).aspx for further info on Lazy<T> class.

@@ -147,13 +147,8 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
 
-                
-                <ListViewItem>
-
-                </ListViewItem>
 
 
-                
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
