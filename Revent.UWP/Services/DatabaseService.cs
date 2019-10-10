@@ -15,7 +15,7 @@ namespace Revent.UWP.Services
     public static class DatabaseService
     {
         // Static properties
-        private static string DB_FILE_V1 = "db_v1_2.sqlite";
+        private static string DB_FILE_V1 = "db_v1.sqlite";
         public static string DB_PATH_L = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILE_V1);
         public static string DB_PATH_R = Path.Combine(ApplicationData.Current.RoamingFolder.Path, DB_FILE_V1);
 
@@ -275,6 +275,19 @@ namespace Revent.UWP.Services
             try
             {
                 await Windows.Storage.ApplicationData.Current.ClearAsync();
+                await Windows.Storage.ApplicationData.Current.RoamingFolder.DeleteAsync();
+            }
+            catch { }
+        }
+        /// <summary>
+        /// Drops all data in the Roaming folder (in case the user doesn't want it's old info anymore.
+        /// </summary>
+        public async static void DropRoamingData()
+        {
+            try
+            {
+                await Windows.Storage.ApplicationData.Current.RoamingFolder.DeleteAsync();
+                // To create a new RoamingFolder, just create a new file in the apps RoamingFolder and Windows will automatically create one.
             }
             catch { }
         }
