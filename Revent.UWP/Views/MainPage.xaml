@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:tkc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:ctk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
 
     xmlns:model="using:Revent.UWP.Core.Models"
@@ -35,33 +35,63 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="88"/>
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- Titlebar -->
-        <Grid Grid.Row="0"
-              Canvas.ZIndex="100"
-              Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-            <StackPanel Orientation="Horizontal">
-                <StackPanel.ChildrenTransitions>
-                    <TransitionCollection>
-                        <RepositionThemeTransition />
-                    </TransitionCollection>
-                </StackPanel.ChildrenTransitions>
-                <Image x:Name="imgAppIcon"
-                       Height="16"
-                       Width="16"
-                       Margin="16,0"
-                       Source="ms-appx:///Assets/Logo/Square44x44Logo.altform-unplated_targetsize-256.png" />
+        <!-- Top -->
+        <ctk:DropShadowPanel x:Name="gridCmbar"
+                                  Grid.Row="0"
+                                  Canvas.ZIndex="75"
+                                  ShadowOpacity="0.6"
+                                  HorizontalAlignment="Stretch"
+                                  HorizontalContentAlignment="Stretch">
+            <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="56" />
+                </Grid.RowDefinitions>
 
-                <TextBlock x:Uid="Main_AppDisplayName"
-                           Text="Revent"
-                           Style="{ThemeResource CaptionTextBlockStyle}"
-                           Margin="0,0,12,0"
-                           VerticalAlignment="Center"/>
-            </StackPanel>
-        </Grid>
+                <!-- Titlebar -->
+                <StackPanel Grid.Row="0"
+                            Canvas.ZIndex="100"
+                            Orientation="Horizontal">
+                    <StackPanel.ChildrenTransitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </StackPanel.ChildrenTransitions>
+                    <Image x:Name="imgAppIcon"
+                           Height="16"
+                           Width="16"
+                           Margin="16,0"
+                           Source="ms-appx:///Assets/Logo/Square44x44Logo.altform-unplated_targetsize-256.png" />
+                    <TextBlock x:Uid="Main_AppDisplayName"
+                               Text="Revent"
+                               Style="{ThemeResource CaptionTextBlockStyle}"
+                               Margin="0,0,12,0"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Main Bar -->
+                <Grid Canvas.ZIndex="75"
+                      Grid.Row="1">
+                    <!-- Title -->
+                    <TextBlock Text="My templates"
+                               VerticalAlignment="Center"
+                               Margin="12,0"
+                               Visibility="Visible"
+                               Style="{ThemeResource FluentSubheaderTextStyle}" />
+                    <!-- Search Bar -->
+                    <TextBox PlaceholderText="Search"
+                             Margin="12"
+                             Visibility="Collapsed"
+                             VerticalAlignment="Center"/>
+
+                </Grid>
+            </Grid>
+        </ctk:DropShadowPanel>
+        <!-- END OF TOP BAR -->
 
         <!-- Main content -->
         <Grid Grid.Row="1" 
@@ -70,29 +100,8 @@
                 <BrushTransition />
             </Grid.BackgroundTransition>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <!-- Searchbar -->
-            <Grid Grid.Row="0"
-                  Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-                <TextBlock Text="My Templates"
-                           Margin="12"
-                           Style="{ThemeResource FluentTitleTextStyle}" />
-                <TextBox Grid.Row="0"
-                         PlaceholderText="Search"
-                         Margin="12"
-                         Visibility="Collapsed"
-                         Style="{ThemeResource FluentTextBoxStyle}" />
-            </Grid>
-
-
-
             <!-- ListView -->
             <ListView x:Name="lvItemTemplates"
-                      Grid.Row="1"
                       IsItemClickEnabled="True"
                       ItemsSource="{x:Bind ViewModel.Templates, Mode=OneWay}"
                       SelectedItem="{x:Bind ViewModel.SelectedTemplate, Mode=TwoWay}"
@@ -159,9 +168,8 @@
             
 
 
-            <!-- Bottom commandbar -->            
-            <tkc:DropShadowPanel Canvas.ZIndex="10"
-                                 Grid.Row="1"
+            <!-- Bottom commandbar -->
+            <ctk:DropShadowPanel Canvas.ZIndex="10"
                                  BlurRadius="10.0"
                                  ShadowOpacity="0.30"
                                  Color="Black"
@@ -214,7 +222,7 @@
                         </AppBarButton>
                     </CommandBar.SecondaryCommands>
                 </CommandBar>
-            </tkc:DropShadowPanel>
+            </ctk:DropShadowPanel>
         </Grid>
 
 
