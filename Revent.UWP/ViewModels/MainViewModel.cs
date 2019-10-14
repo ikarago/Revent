@@ -20,7 +20,6 @@ namespace Revent.UWP.ViewModels
 {
     public class MainViewModel : Observable
     {
-
         // Properties
         private ObservableCollection<TemplateModel> _templates;
         public ObservableCollection<TemplateModel> Templates
@@ -42,6 +41,23 @@ namespace Revent.UWP.ViewModels
             get { return _selectedTemplate; }
             set { Set(ref _selectedTemplate, value); }
         }
+
+
+        // UI Properties
+        private bool _uiShowImportLoading;
+        public bool UiShowImportLoading
+        {
+            get { return _uiShowImportLoading; }
+            set { Set(ref _uiShowImportLoading, value); }
+        }
+
+        private bool _uiShowImportSuccessful;
+        public bool UiShowImportSuccessful
+        {
+            get { return _uiShowImportSuccessful; }
+            set { Set(ref _uiShowImportSuccessful, value); }
+        }
+
 
 
 
@@ -72,6 +88,9 @@ namespace Revent.UWP.ViewModels
 
             // Make sure no template is selected
             _selectedTemplate = null;
+
+            // Set UI elements
+            UiShowImportLoading = false;
         }
 
         private async void OpenTemplateFromSecondaryTileAsync()
@@ -115,6 +134,23 @@ namespace Revent.UWP.ViewModels
                         });
                 }
                 return _importTemplateCommand;
+            }
+        }
+
+        private ICommand _importFromClassicCommand;
+        public ICommand ImportFromClassicCommand
+        {
+            get
+            {
+                if (_importFromClassicCommand == null)
+                {
+                    _importFromClassicCommand = new RelayCommand(
+                        () =>
+                        {
+                            ImportFromReventClassic();
+                        });
+                }
+                return _importFromClassicCommand;
             }
         }
 
@@ -525,6 +561,44 @@ namespace Revent.UWP.ViewModels
 
             return clean;
         }
+
+        private async void ImportFromReventClassic()
+        {
+            // Show dialog asking the user if they wish to import their old data
+
+            // Show loading window
+            UiShowImportLoading = true;
+
+            // Migrate from 
+            bool success = DatabaseService.MigrateFromReventClassic();
+            await Task.Delay(2000);
+
+            // Hide load window and show import successful for 3 secs
+            if (success == true)
+            {
+                UiShowImportSuccessful = true;
+                UiShowImportLoading = false;
+                await Task.Delay(3000);
+                UiShowImportSuccessful = false;
+            }
+            else
+            {
+                // TODO Show failed message
+                UiShowImportLoading = false;
+                await Task.Delay(3000);
+                // TODO Hide failed message
+            }
+
+
+            // Ask if the user wishes to keep their old data (for the classic app)
+
+
+            // Refresh data
+            Templates.Clear();
+            GetTemplates();
+        }
+
+
 
 
         /// <summary>

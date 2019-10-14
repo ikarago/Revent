@@ -63,11 +63,9 @@
             </StackPanel>
         </Grid>
 
-
         <!-- Main content -->
-        <Grid
-            Grid.Row="1" 
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+        <Grid Grid.Row="1" 
+              Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <Grid.BackgroundTransition>
                 <BrushTransition />
             </Grid.BackgroundTransition>
@@ -164,90 +162,110 @@
             <!-- Bottom commandbar -->            
             <tkc:DropShadowPanel Canvas.ZIndex="10"
                                  Grid.Row="1"
-                                HorizontalAlignment="Right"
-                                 VerticalAlignment="Bottom"
-                                 Margin="24">
-                <!--<CommandBar DefaultLabelPosition="Right">
+                                 BlurRadius="10.0"
+                                 ShadowOpacity="0.30"
+                                 Color="Black"
+                                 OffsetX="4"
+                                 OffsetY="4"
+                                 Margin="24"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom">
+                <CommandBar DefaultLabelPosition="Right"
+                            CornerRadius="2"
+                            Style="{ThemeResource CommandBarRevealStyle}">
                     <CommandBar.PrimaryCommands>
                         <AppBarButton Icon="Add"
-                                  Label="New"/>
+                                      Label="New template"
+                                      Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                      Foreground="{ThemeResource SystemControlForegroundChromeWhiteBrush}"
+                                      FontWeight="SemiBold"
+                                      CornerRadius="2,0,0,2"
+                                      Command="{x:Bind ViewModel.NewTemplateCommand}"/>
                         <AppBarButton Icon="Import"
-                                  Label="Import" />
+                                      Label="Import"
+                                      LabelPosition="Collapsed">
+                            <AppBarButton.Flyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Import from file"
+                                                    Command="{x:Bind ViewModel.ImportTemplateCommand}">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xE1A5;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Text="Import from previous version"
+                                                    Command="{x:Bind ViewModel.ImportFromClassicCommand}">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xE8B6;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
+                            </AppBarButton.Flyout>
+                        </AppBarButton>
                     </CommandBar.PrimaryCommands>
                     <CommandBar.SecondaryCommands>
                         <AppBarButton Icon="Setting"
-                                      Label="Settings"/>
-                        <AppBarButton Icon="ContactInfo"
-                                      Label="About" />
+                                      Label="Settings"
+                                      Command="{x:Bind ViewModel.SettingsCommand}"/>
+                        <AppBarButton Label="About"
+                                      Command="{x:Bind ViewModel.AboutCommand}">
+                            <AppBarButton.Icon>
+                                <FontIcon Glyph="&#xE946;"/>
+                            </AppBarButton.Icon>
+                        </AppBarButton>
                     </CommandBar.SecondaryCommands>
-                </CommandBar>-->
-
-                <StackPanel Orientation="Horizontal"
-                            Visibility="Visible"
-                            CornerRadius="2"
-                            Background="{ThemeResource AppBarBackgroundThemeBrush}">
-
-                     <!--Dialog buttons--> 
-                    <Button x:Name="btnNewTemplate"
-                            Canvas.ZIndex="20"
-                        CornerRadius="2,0,0,2"
-                        Height="48"
-                        Padding="12,8"
-                            Style="{ThemeResource ButtonRevealStyle}"
-                            Command="{x:Bind ViewModel.NewTemplateCommand}">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{ThemeResource FluentFormIconStyle}"
-                                       Text="&#xE109;"/>
-                                <TextBlock Text="New" />
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-
-                    <Button Canvas.ZIndex="21"
-                            Height="48"
-                            Padding="12,8"
-                            Command="{x:Bind ViewModel.ImportTemplateCommand}"
-                            Style="{ThemeResource ButtonRevealStyle}">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{ThemeResource FluentFormIconStyle}"
-                                           Margin="0"
-                                           Text="&#xE150;"/>
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-
-
-                    <Button Canvas.ZIndex="22"
-                            Height="48"
-                            CornerRadius="0,2,2,0"
-                            Padding="12,8"
-                            Style="{ThemeResource ButtonRevealStyle}">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{ThemeResource FluentFormIconStyle}"
-                                       Margin="0"
-                                       Text="&#xE10C;"/>
-                            </StackPanel>
-                        </Button.Content>
-                        <Button.Flyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Text="Settings"
-                                                Icon="Setting"
-                                                Command="{x:Bind ViewModel.SettingsCommand}" />
-                                <MenuFlyoutItem Text="About"
-                                                Command="{x:Bind ViewModel.AboutCommand}">
-                                    <MenuFlyoutItem.Icon>
-                                        <FontIcon Glyph="&#xE946;"/>
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-                            </MenuFlyout>
-                        </Button.Flyout>
-                    </Button>
-                </StackPanel>
-
+                </CommandBar>
             </tkc:DropShadowPanel>
+        </Grid>
+
+
+        <!-- Alternative UIs -->
+        <!-- Import loading window -->
+        <Grid Grid.Row="0"
+              Grid.RowSpan="2"
+              Canvas.ZIndex="100"
+              Background="{ThemeResource SystemControlAcrylicElementMediumHighBrush}"
+              Visibility="{x:Bind ViewModel.UiShowImportLoading, Mode=OneWay}">
+            <!-- Load stuff -->
+            <StackPanel Grid.Row="1"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center">
+                <ProgressRing Height="72"
+                              Width="72"
+                              IsActive="True"
+                              Visibility="Collapsed"
+                              HorizontalAlignment="Center"/>
+                <ProgressBar IsIndeterminate="True"
+                             HorizontalAlignment="Stretch" />
+                <TextBlock Text="Importing..."
+                           HorizontalAlignment="Center"
+                           Margin="0,24,0,8"/>
+                <Button Content="Cancel"
+                        HorizontalAlignment="Center"
+                        Visibility="Collapsed"
+                        Style="{ThemeResource TextBlockButtonStyle}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Import successful -->
+        <Grid Grid.Row="0"
+              Grid.RowSpan="2"
+              Canvas.ZIndex="101"
+              Background="{ThemeResource SystemControlAcrylicElementMediumHighBrush}"
+              Visibility="{x:Bind ViewModel.UiShowImportSuccessful, Mode=OneWay}">
+            <!-- Load stuff -->
+            <StackPanel Grid.Row="1"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center">
+                <TextBlock Text="&#xE081;"
+                           FontSize="32"
+                           FontFamily="Segoe MDL2 Assets"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Import completed!"
+                           HorizontalAlignment="Center"
+                           Margin="0,12,0,0"/>
+            </StackPanel>
         </Grid>
 
         <!-- Secondary Live Tile Launch stuff -->

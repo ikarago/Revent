@@ -51,7 +51,7 @@ namespace Revent.UWP.Services
         {
             // Check if an migration already has been done
             // This has been set to true by default. If the setting catch fails (because it doesn't exist yet) we know it can't have any migrated data as this setting only gets written at the end of the sequence
-            bool alreadyMigrated = true;
+            /*bool alreadyMigrated = true;
 
             ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             try
@@ -68,8 +68,10 @@ namespace Revent.UWP.Services
 
             // If the data hasn't been migrated yet then migrate the data
             if (alreadyMigrated == false)
+            {*/
+            // Check if an Roaming database file exists
+            try
             {
-                // Check if an Roaming database file exists
                 if (CheckFileExistsRoamingAsync(DB_FILE_V1).Result)
                 {
                     Debug.WriteLine("DatabaseService - Migrating database...");
@@ -98,7 +100,7 @@ namespace Revent.UWP.Services
 
 
                     // Set local settings bool for successful migration to true
-                    localSettings.Values["AlreadyMigratedFromClassic"] = "true";
+                    //localSettings.Values["AlreadyMigratedFromClassic"] = "true";
                     Debug.WriteLine("DatabaseService - Migration successfull! :)");
 
 
@@ -108,7 +110,10 @@ namespace Revent.UWP.Services
                 }
                 else { return false; }
             }
-            else { return false; }
+            catch { return false; }
+
+            //}
+            //else { return false; }
         }
 
         /// <summary>

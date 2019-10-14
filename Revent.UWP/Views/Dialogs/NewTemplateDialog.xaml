@@ -202,51 +202,21 @@
         <!-- Buttons -->
         <Grid Grid.Row="2"
               BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}"
-              BorderThickness="0,1,0,0">
+              BorderThickness="0,0,0,0">
             <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center"
-                    Padding="0,8,0,0"
->
-
-                <!-- Cancel button -->
-                <Button Padding="12,6"
-                        Margin="0,0"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        Background="Transparent"
-                        CornerRadius="{StaticResource FluentButtonCorners}"
-                        Command="{x:Bind CloseDialogCommand}"
-                        Style="{ThemeResource ButtonRevealStyle}">
-                    <Button.Content>
-                        <StackPanel MinWidth="128"
-                                    MinHeight="32"
-                                    Orientation="Horizontal">
-                            <TextBlock Text="&#xE10A;"
-                                       FontFamily="Segoe MDL2 Assets"
-                                       Style="{ThemeResource SubtitleTextBlockStyle}"
-                                       Padding="0,0,12,0"
-                                       VerticalAlignment="Center"/>
-                            <TextBlock x:Uid="ExitConfirmation-No"
-                                       Text="Cancel"
-                                       VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button.Content>
-                    <Button.KeyboardAccelerators>
-                        <KeyboardAccelerator Modifiers="None"
-                                             Key="Escape" />
-                    </Button.KeyboardAccelerators>
-                </Button>
+                    Padding="0,8,0,0">
 
                 <!-- Save button -->
                 <Button Padding="12,6"
-                        Margin="0,0"
+                        Margin="0,0,4,0"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Left"
                         Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                         RequestedTheme="Dark"
                         CornerRadius="{StaticResource FluentButtonCorners}"
                         Command="{x:Bind SaveCommand}"
-                        Style="{ThemeResource ButtonRevealStyle}">
+                        Style="{ThemeResource FluentButtonAccentStyle}">
                     <Button.Content>
                         <StackPanel MinWidth="128"
                                     MinHeight="32"
@@ -264,6 +234,35 @@
                     <Button.KeyboardAccelerators>
                         <KeyboardAccelerator Modifiers="Control"
                                              Key="S" />
+                    </Button.KeyboardAccelerators>
+                </Button>
+
+                <!-- Cancel button -->
+                <Button Padding="12,6"
+                        Margin="4,0,0,0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Background="Transparent"
+                        CornerRadius="{StaticResource FluentButtonCorners}"
+                        Command="{x:Bind CloseDialogCommand}"
+                        Style="{ThemeResource FluentButtonStandardStyle}">
+                    <Button.Content>
+                        <StackPanel MinWidth="128"
+                                    MinHeight="32"
+                                    Orientation="Horizontal">
+                            <TextBlock Text="&#xE10A;"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Padding="0,0,12,0"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock x:Uid="ExitConfirmation-No"
+                                       Text="Cancel"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="None"
+                                             Key="Escape" />
                     </Button.KeyboardAccelerators>
                 </Button>
 

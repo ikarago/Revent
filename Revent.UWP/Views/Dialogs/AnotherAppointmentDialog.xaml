@@ -61,16 +61,14 @@
                     HorizontalAlignment="Stretch"
                     Padding="0,8,0,0"
                     BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}"
-                    BorderThickness="0,1,0,0">
+                    BorderThickness="0,0,0,0">
 
             <!-- One More button -->
-            <Button Padding="12,6"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Stretch"
-                    Background="Transparent"
-                    Margin="0,0,0,8"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    CornerRadius="{ThemeResource FluentButtonCorners}"
+            <Button Margin="0,0,0,8"
+                    Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                    Foreground="{ThemeResource SystemControlForegroundChromeWhiteBrush}"
+                    BorderThickness="0"
+                    Style="{ThemeResource FluentDialogButtonStandardStyle}"
                     Command="{x:Bind OneMoreCommand}">
                 <Button.Content>
                     <Grid MinWidth="128"
@@ -106,12 +104,8 @@
             </Button>
 
             <!-- Cancel button -->
-            <Button Padding="12,6"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Stretch"
-                    Background="Transparent"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    CornerRadius="{ThemeResource FluentButtonCorners}"
+            <Button Margin="0,0,0,8"
+                    Style="{ThemeResource FluentDialogButtonStandardStyle}"
                     Command="{x:Bind CancelCommand}">
                 <Button.Content>
                     <Grid MinWidth="128"
