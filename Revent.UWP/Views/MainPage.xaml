@@ -33,7 +33,7 @@
     </Page.Resources>
 
     
-    <Grid>
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="88"/>
             <RowDefinition Height="*" />
@@ -94,18 +94,112 @@
         <!-- END OF TOP BAR -->
 
         <!-- Main content -->
-        <Grid Grid.Row="1" 
-              Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+        <Grid Grid.Row="1">
             <Grid.BackgroundTransition>
                 <BrushTransition />
             </Grid.BackgroundTransition>
 
             <!-- ListView -->
             <ListView x:Name="lvItemTemplates"
+                      Canvas.ZIndex="10"
                       IsItemClickEnabled="True"
                       ItemsSource="{x:Bind ViewModel.Templates, Mode=OneWay}"
                       SelectedItem="{x:Bind ViewModel.SelectedTemplate, Mode=TwoWay}"
                       ItemClick="LvItemTemplates_ItemClick">
+                <ListViewItem>
+                    <Grid BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                              BorderThickness="0,0,0,1"
+                              Background="Transparent"
+                              Margin="0"
+                              Padding="0,8"
+                              HorizontalAlignment="Stretch"
+                              Holding="Grid_Holding"
+                              RightTapped="Grid_RightTapped"
+                              FlyoutBase.AttachedFlyout="{StaticResource TemplateItemMenuFlyout}">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid Background="Transparent"
+                                  VerticalAlignment="Center"
+                                      Height="72"
+                                      Width="72">
+                                <TextBlock Text="&#xE8F5;"
+                                               Visibility="Visible"
+                                               Style="{ThemeResource TitleTextBlockStyle}"
+                                               FontFamily="Segoe MDL2 Assets"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                <!-- FOR DEBUGGING -->
+                                <!--<TextBlock Text="{x:Bind TemplateId, Mode=OneWay}"
+                                               Visibility="Visible"
+                                               Style="{ThemeResource TitleTextBlockStyle}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>-->
+                            </Grid>
+
+                            <StackPanel Orientation="Vertical"
+                                        HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Center"
+                                            Margin="12,0">
+                                <TextBlock Text="Template Name"
+                                               TextTrimming="CharacterEllipsis"
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,0,4"
+                                               Style="{ThemeResource FluentTitleTextStyle}"/>
+                                <TextBlock Text="Subject"
+                                           Margin="0,0,0,8"
+                                               TextTrimming="CharacterEllipsis"
+                                               VerticalAlignment="Center"
+                                               Style="{ThemeResource FluentSubcaptionTextStyle}"/>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,0,0,2">
+                                    <!-- Label 1-->
+                                    <ctk:DropShadowPanel BlurRadius="4.0"
+                                                         ShadowOpacity="0.30"
+                                                         Color="Black"
+                                                         OffsetX="1"
+                                                         OffsetY="1"
+                                                         Margin="0,0,8,0">
+                                        <Border Background="{ThemeResource SystemAccentColor}"
+                                              CornerRadius="2"
+                                              Padding="8,4">
+                                            <TextBlock Text="Label 1"
+                                                       VerticalAlignment="Center"
+                                                       Style="{ThemeResource FluentCaptionTextStyle}"/>
+                                        </Border>
+                                    </ctk:DropShadowPanel>
+                                    <!-- Label 2-->
+                                    <ctk:DropShadowPanel BlurRadius="4.0"
+                                                         ShadowOpacity="0.30"
+                                                         Color="Black"
+                                                         OffsetX="2"
+                                                         OffsetY="2"
+                                                         Margin="0,0,8,0">
+                                        <Border Background="{ThemeResource SystemControlAccentDark1AcrylicElementAccentDark1Brush}"
+                                              CornerRadius="2"
+                                              Padding="8,4">
+                                            <TextBlock Text="Label 2"
+                                                       VerticalAlignment="Center"
+                                                       Style="{ThemeResource FluentCaptionTextStyle}"/>
+                                        </Border>
+                                    </ctk:DropShadowPanel>
+                                    <!-- Label 3-->
+                                    <ctk:DropShadowPanel BlurRadius="2.0"
+                                                         ShadowOpacity="0.30"
+                                                         Color="Black"
+                                                         OffsetX="2"
+                                                         OffsetY="2">
+                                        <Border Background="{ThemeResource SystemControlAccentDark2AcrylicElementAccentDark2MediumHighBrush}"
+                                              CornerRadius="2"
+                                              Padding="8,4">
+                                            <TextBlock Text="Label 3"
+                                                       VerticalAlignment="Center"
+                                                       Style="{ThemeResource FluentCaptionTextStyle}"/>
+                                        </Border>
+                                    </ctk:DropShadowPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </ListViewItem>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:TemplateModel">
                         <Grid BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
@@ -228,12 +322,12 @@
 
         <!-- Alternative UIs -->
         <!-- Import loading window -->
-        <Grid Grid.Row="0"
+        <!--<Grid Grid.Row="0"
               Grid.RowSpan="2"
-              Canvas.ZIndex="100"
+              Canvas.ZIndex="200"
               Background="{ThemeResource SystemControlAcrylicElementMediumHighBrush}"
               Visibility="{x:Bind ViewModel.UiShowImportLoading, Mode=OneWay}">
-            <!-- Load stuff -->
+            --><!-- Load stuff --><!--
             <StackPanel Grid.Row="1"
                         Orientation="Vertical"
                         HorizontalAlignment="Stretch"
@@ -253,15 +347,15 @@
                         Visibility="Collapsed"
                         Style="{ThemeResource TextBlockButtonStyle}" />
             </StackPanel>
-        </Grid>
+        </Grid>-->
 
         <!-- Import successful -->
-        <Grid Grid.Row="0"
+        <!--<Grid Grid.Row="0"
               Grid.RowSpan="2"
-              Canvas.ZIndex="101"
+              Canvas.ZIndex="201"
               Background="{ThemeResource SystemControlAcrylicElementMediumHighBrush}"
               Visibility="{x:Bind ViewModel.UiShowImportSuccessful, Mode=OneWay}">
-            <!-- Load stuff -->
+            --><!-- Load stuff --><!--
             <StackPanel Grid.Row="1"
                         Orientation="Vertical"
                         HorizontalAlignment="Stretch"
@@ -274,7 +368,7 @@
                            HorizontalAlignment="Center"
                            Margin="0,12,0,0"/>
             </StackPanel>
-        </Grid>
+        </Grid>-->
 
         <!-- Secondary Live Tile Launch stuff -->
         <Grid x:Name="gridSecondaryLiveTileLaunch"
