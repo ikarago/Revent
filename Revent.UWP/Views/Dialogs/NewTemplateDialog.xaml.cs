@@ -37,17 +37,21 @@ namespace Revent.UWP.Views.Dialogs
             this.InitializeComponent();
 
             // Set the title of the dialog
+            // #TODO Set this with proper ResourceDictionaries
             if (ViewModel.ExistingTemplate == null)
             {
                 // Set as New Template
+                tblDialogTitle.Text = "New template";
             }
             else if (ViewModel.ExistingTemplate.TemplateId >= 1)
             {
                 // Set as Edit Template
+                tblDialogTitle.Text = "Edit template";
             }
             else if (ViewModel.ExistingTemplate.TemplateId == -1)
             {
                 // Set as Import Template
+                tblDialogTitle.Text = "Import template";
             }
         }
 
@@ -99,16 +103,16 @@ namespace Revent.UWP.Views.Dialogs
             }
             else
             {
-                // TODO Change border colours
-            }
-        }
-
-        private void txtSubject_TextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
-        {
-            if (ViewModel.UiIsSubjectEmpty == true && (txtSubject.Text != "" || txtSubject.Text != null))
-            {
-                ViewModel.UiIsSubjectEmpty = false;
-                // #TODO Reset Borders
+                // Change border colours
+                // #TODO Do this in a XAML storyboard?
+                if (ViewModel.UiIsTemplateNameEmpty == true)
+                {
+                    txtTemplateName.BorderBrush = new SolidColorBrush(Windows.UI.Colors.Red);
+                }
+                if (ViewModel.UiIsSubjectEmpty == true)
+                {
+                    txtSubject.BorderBrush = new SolidColorBrush(Windows.UI.Colors.Red);
+                }
             }
         }
 
@@ -118,7 +122,25 @@ namespace Revent.UWP.Views.Dialogs
             {
                 ViewModel.UiIsTemplateNameEmpty = false;
                 // #TODO Reset Borders
+                // TEMP, Make it green
+                txtTemplateName.BorderBrush = new SolidColorBrush(Windows.UI.Colors.Green);
+                //txtTemplateName.BorderBrush = (Brush)Application.Current.Resources["TextControlBorderBrush"];
+
             }
         }
+
+        private void txtSubject_TextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
+        {
+            if (ViewModel.UiIsSubjectEmpty == true && (txtSubject.Text != "" || txtSubject.Text != null))
+            {
+                ViewModel.UiIsSubjectEmpty = false;
+                // #TODO Reset Borders ---> TextControlBorderBrush
+                // TEMP, Make it green
+                txtSubject.BorderBrush = new SolidColorBrush(Windows.UI.Colors.Green);
+                //txtSubject.BorderBrush = (SolidColorBrush)Application.Current.Resources["TextControlBorderBrush"];
+            }
+        }
+
+
     }
 }

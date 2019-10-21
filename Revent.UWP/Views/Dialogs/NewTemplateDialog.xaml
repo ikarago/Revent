@@ -28,7 +28,8 @@
                        Padding="0,0,0,8"
                        BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}"
                        BorderThickness="0,0,0,1">
-            <TextBlock Text="New template"
+            <TextBlock x:Name="tblDialogTitle"
+                       Text="New template"
                        Style="{ThemeResource FluentSubheaderTextStyle}"
                        RelativePanel.AlignVerticalCenterWithPanel="True"/>
             <Button Style="{ThemeResource FluentDialogButtonCloseStyle}"
@@ -120,6 +121,7 @@
                              Grid.Column="1"
                              PlaceholderText="Subject"
                              HorizontalAlignment="Stretch"
+                             BorderBrush="{ThemeResource TextControlBorderBrush}"
                              TextWrapping="Wrap"
                              TextChanging="txtSubject_TextChanging"
                              Text="{x:Bind ViewModel.Template.AppointmentSubject, Mode=TwoWay}"/>
