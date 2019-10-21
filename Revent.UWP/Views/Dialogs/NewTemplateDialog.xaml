@@ -58,11 +58,20 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+                <Grid.ChildrenTransitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </Grid.ChildrenTransitions>
 
                 
                 <!-- 0 - Template Name -->
                 <Grid Grid.Row="0"
                       Margin="{ThemeResource FormTextBoxMargin}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="48" />
                         <ColumnDefinition Width="*" />
@@ -73,16 +82,30 @@
                                Width="48"
                                Style="{ThemeResource FluentFormIconStyle}"/>
 
-                    <TextBox Grid.Column="1"
+                    <TextBox x:Name="txtTemplateName"
+                             Grid.Column="1"
                              PlaceholderText="Template name"
                              HorizontalAlignment="Stretch"
                              TextWrapping="Wrap"
+                             TextChanging="txtTemplateName_TextChanging"
                              Text="{x:Bind ViewModel.Template.TemplateName, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="Please fill in a template name"
+                               Foreground="Red"
+                               Visibility="{x:Bind ViewModel.UiIsTemplateNameEmpty, Mode=OneWay}"
+                               Margin="0,4,0,0"/>
+
                 </Grid>
 
                 <!-- 1 - Subject -->
                 <Grid Grid.Row="1"
                       Margin="{ThemeResource FormTextBoxMargin}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="48" />
                         <ColumnDefinition Width="*" />
@@ -93,11 +116,20 @@
                                Width="48"
                                Style="{ThemeResource FluentFormIconStyle}"/>
 
-                    <TextBox Grid.Column="1"
+                    <TextBox x:Name="txtSubject"
+                             Grid.Column="1"
                              PlaceholderText="Subject"
                              HorizontalAlignment="Stretch"
                              TextWrapping="Wrap"
+                             TextChanging="txtSubject_TextChanging"
                              Text="{x:Bind ViewModel.Template.AppointmentSubject, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="Please fill in a subject"
+                               Foreground="Red"
+                               Visibility="{x:Bind ViewModel.UiIsSubjectEmpty, Mode=OneWay}"
+                               Margin="0,4,0,0"/>
                 </Grid>
 
                 <!-- 2 - Location -->

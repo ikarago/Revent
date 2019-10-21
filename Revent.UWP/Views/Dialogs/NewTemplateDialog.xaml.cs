@@ -92,10 +92,33 @@ namespace Revent.UWP.Views.Dialogs
         // Methods
         private void Save()
         {
-            SavedTemplate = ViewModel.SaveTemplate();
-            Hide();
+            if (ViewModel.CheckForRequiredInput() == true)
+            {
+                SavedTemplate = ViewModel.SaveTemplate();
+                Hide();
+            }
+            else
+            {
+                // TODO Change border colours
+            }
         }
 
+        private void txtSubject_TextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
+        {
+            if (ViewModel.UiIsSubjectEmpty == true && (txtSubject.Text != "" || txtSubject.Text != null))
+            {
+                ViewModel.UiIsSubjectEmpty = false;
+                // #TODO Reset Borders
+            }
+        }
 
+        private void txtTemplateName_TextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
+        {
+            if (ViewModel.UiIsTemplateNameEmpty == true && (txtTemplateName.Text != "" || txtTemplateName != null))
+            {
+                ViewModel.UiIsTemplateNameEmpty = false;
+                // #TODO Reset Borders
+            }
+        }
     }
 }

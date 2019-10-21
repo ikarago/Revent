@@ -28,6 +28,21 @@ namespace Revent.UWP.ViewModels
             set { Set(ref _existingTemplate, value); }
         }
 
+        // UI Properties
+        private bool _uiIsTemplateNameEmpty;
+        public bool UiIsTemplateNameEmpty
+        {
+            get { return _uiIsTemplateNameEmpty; }
+            set { Set(ref _uiIsTemplateNameEmpty, value); }
+        }
+
+        private bool _uiIsSubjectEmpty;
+        public bool UiIsSubjectEmpty
+        {
+            get { return _uiIsSubjectEmpty; }
+            set { Set(ref _uiIsSubjectEmpty, value); }
+        }
+
 
         // Constructor
         public TemplateEditorViewModel(TemplateModel existModel = null)
@@ -48,6 +63,10 @@ namespace Revent.UWP.ViewModels
                 Template = existModel;
                 ExistingTemplate = existModel;
             }
+
+            // Set UI Empty toggles so the error messages won't be displayed right away
+            UiIsSubjectEmpty = false;
+            UiIsTemplateNameEmpty = false;
 
         }
 
@@ -74,6 +93,30 @@ namespace Revent.UWP.ViewModels
             // Return the TemplateModel to the Dialog that has called it
             // This saved TemplateModel also contains the ID, so when it get's added back by the MainViewModel, it'll work properly if updated in the same usersession
             return savedModel;
+        }
+
+        /// <summary>
+        /// Checks if the required things have been filled in
+        /// </summary>
+        /// <returns>boolean indicating if all required input has been entered (true) or not (false)</returns>
+        public bool CheckForRequiredInput()
+        {
+            bool isAllGood = true;
+            // Check if the Template Name has been filled in
+            if (Template.TemplateName == "" || Template.TemplateName == null)
+            {
+                UiIsTemplateNameEmpty = true;
+                isAllGood = false;
+            }
+            // Check if the Subject has been filled in
+            if (Template.AppointmentSubject == "" || Template.AppointmentSubject == null)
+            {
+                UiIsSubjectEmpty = true;
+                isAllGood = false;
+            }
+
+            // If one of the checks has failed, this returns false, otherwise it returns true
+            return isAllGood;
         }
 
 
