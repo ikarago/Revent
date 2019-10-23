@@ -1,0 +1,74 @@
+﻿<Page
+    x:Class="Revent.UWP.Views.FirstRunPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Revent.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctkc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+
+    <!-- Page animations -->
+    <Page.Transitions>
+        <TransitionCollection>
+            <EntranceThemeTransition />
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Grid>
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical"
+                        VerticalAlignment="Center">
+                <ctkc:DropShadowPanel Margin="0,0,0,56"
+                                      Canvas.ZIndex="10"
+                                      BlurRadius="10.0"
+                                      ShadowOpacity="0.30"
+                                      Color="Black"
+                                      OffsetX="4"
+                                      OffsetY="4"
+                                      HorizontalAlignment="Center">
+                    <Grid  Background="{ThemeResource SystemAccentColor}"
+                           HorizontalAlignment="Center"
+                           Padding="24"
+                           CornerRadius="2"
+                           >
+                        <Image Source="/Assets/Logo/NewLogo_1_Final5_cut.png"
+                           HorizontalAlignment="Center"
+                           
+                           MaxWidth="120"
+                           MaxHeight="120"/>
+                    </Grid>
+                </ctkc:DropShadowPanel>
+
+
+                <TextBlock Text="Welcome!"
+                           Margin="0,0,0,8"
+                           HorizontalAlignment="Center"
+                           Style="{ThemeResource FluentHeaderTextStyle}" />
+                <TextBlock Text="Revent allows you to create templates for frequent appointments"
+                           Margin="12,0,12,18"
+                           TextAlignment="Center"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap"
+                           Style="{ThemeResource FluentBodyTextStyle}" />
+                <TextBlock Text="Let's get started with your first template"
+                           Margin="0,0,0,24"
+                           HorizontalAlignment="Center"
+                           Style="{ThemeResource FluentSubbodyTextStyle}" />
+                <ctkc:DropShadowPanel Canvas.ZIndex="10"
+                                      BlurRadius="10.0"
+                                      ShadowOpacity="0.30"
+                                      Color="Black"
+                                      OffsetX="4"
+                                      OffsetY="4"
+                                      HorizontalAlignment="Center">
+                    <Button x:Name="btnCreateTemplate"
+                            Content="Let's start!"
+                            Style="{ThemeResource FluentButtonAccentStyle}"
+                            Click="btnCreateTemplate_Click" />
+                </ctkc:DropShadowPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

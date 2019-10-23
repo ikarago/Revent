@@ -10,7 +10,6 @@
     xmlns:model="using:Revent.UWP.Core.Models"
     mc:Ignorable="d">
     <Page.Resources>
-
         <!-- Menu Flyouts -->
         <MenuFlyout x:Key="TemplateItemMenuFlyout"
                     Placement="Bottom">
@@ -32,7 +31,13 @@
         </MenuFlyout>
     </Page.Resources>
 
-    
+    <Page.Transitions>
+        <TransitionCollection>
+            <EntranceThemeTransition />
+        </TransitionCollection>
+    </Page.Transitions>
+
+
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="88"/>
@@ -106,6 +111,11 @@
                       ItemsSource="{x:Bind ViewModel.Templates, Mode=OneWay}"
                       SelectedItem="{x:Bind ViewModel.SelectedTemplate, Mode=TwoWay}"
                       ItemClick="LvItemTemplates_ItemClick">
+                <ListView.Transitions>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition />
+                    </TransitionCollection>
+                </ListView.Transitions>
                 <ListViewItem>
                     <Grid BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
                               BorderThickness="0,0,0,1"
@@ -285,8 +295,9 @@
                                       Command="{x:Bind ViewModel.NewTemplateCommand}"/>
                         <AppBarButton Icon="Import"
                                       Label="Import"
-                                      LabelPosition="Collapsed">
-                            <AppBarButton.Flyout>
+                                      LabelPosition="Collapsed"
+                                      Command="{x:Bind ViewModel.ImportTemplateCommand}">
+                            <!--<AppBarButton.Flyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="Import from file"
                                                     Command="{x:Bind ViewModel.ImportTemplateCommand}">
@@ -301,7 +312,7 @@
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                 </MenuFlyout>
-                            </AppBarButton.Flyout>
+                            </AppBarButton.Flyout>-->
                         </AppBarButton>
                     </CommandBar.PrimaryCommands>
                     <CommandBar.SecondaryCommands>

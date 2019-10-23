@@ -145,9 +145,6 @@
     <Compile Include="Views\Dialogs\AnotherAppointmentDialog.xaml.cs">
       <DependentUpon>AnotherAppointmentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\FirstRunDialog.xaml.cs">
-      <DependentUpon>FirstRunDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Dialogs\NewTemplateDialog.xaml.cs">
       <DependentUpon>NewTemplateDialog.xaml</DependentUpon>
     </Compile>
@@ -156,6 +153,9 @@
     </Compile>
     <Compile Include="Views\EmptyPage.xaml.cs">
       <DependentUpon>EmptyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FirstRunPage.xaml.cs">
+      <DependentUpon>FirstRunPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -207,10 +207,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\FirstRunDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Dialogs\NewTemplateDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -220,6 +216,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EmptyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FirstRunPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -246,6 +246,7 @@
     <Content Include="Assets\Logo\LargeTile.scale-150.png" />
     <Content Include="Assets\Logo\LargeTile.scale-200.png" />
     <Content Include="Assets\Logo\LargeTile.scale-400.png" />
+    <Content Include="Assets\Logo\NewLogo_1_Final5_cut.png" />
     <Content Include="Assets\Logo\SmallTile.scale-100.png" />
     <Content Include="Assets\Logo\SmallTile.scale-125.png" />
     <Content Include="Assets\Logo\SmallTile.scale-150.png" />

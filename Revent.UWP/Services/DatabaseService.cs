@@ -110,7 +110,11 @@ namespace Revent.UWP.Services
                 }
                 else { return false; }
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("DatabaseService - " + ex);
+                return false;
+            }
 
             //}
             //else { return false; }
@@ -145,8 +149,7 @@ namespace Revent.UWP.Services
                 return true;
             }
             catch
-            { }
-            return false;
+            { return false; }
         }
 
 

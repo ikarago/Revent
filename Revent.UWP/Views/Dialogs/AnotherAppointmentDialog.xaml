@@ -5,14 +5,14 @@
     xmlns:local="using:Revent.UWP.Views.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    
+    xmlns:ctkc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     Background="{ThemeResource SystemControlAcrylicElementBrush}"
     BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
     CornerRadius="{StaticResource FluentDialogCorners}"
     
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Margin="8">
         <Grid.BackgroundTransition>
             <BrushTransition />
         </Grid.BackgroundTransition>
@@ -60,85 +60,109 @@
                     Orientation="Vertical"
                     HorizontalAlignment="Stretch"
                     Padding="0,8,0,0"
+                    Margin="0,0,0,0"
                     BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}"
                     BorderThickness="0,0,0,0">
 
             <!-- One More button -->
-            <Button Margin="0,0,0,8"
-                    Background="{ThemeResource SystemControlBackgroundAccentBrush}"
-                    Foreground="{ThemeResource SystemControlForegroundChromeWhiteBrush}"
-                    BorderThickness="0"
-                    Style="{ThemeResource FluentDialogButtonStandardStyle}"
-                    Command="{x:Bind OneMoreCommand}">
-                <Button.Content>
-                    <Grid MinWidth="128"
-                          MinHeight="32">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0"
-                                   Text="&#xE149;"
-                                   FontFamily="Segoe MDL2 Assets"
-                                   Style="{ThemeResource SubtitleTextBlockStyle}"
-                                   Padding="0,0,12,0"
-                                   VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="Create another appointment"
-                                   VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="2"
-                                   Text="C"
-                                   VerticalAlignment="Center"
-                                   Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                                   Style="{ThemeResource FluentCaptionTextStyle}"/>
-                    </Grid>
-                </Button.Content>
-                <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Modifiers="None"
+            <ctkc:DropShadowPanel Canvas.ZIndex="10"
+                                  Margin="0,0,0,8"
+                                  BlurRadius="10.0"
+                                  ShadowOpacity="0.30"
+                                  Color="Black"
+                                  OffsetX="4"
+                                  OffsetY="4"
+                                  HorizontalAlignment="Stretch"
+                                  HorizontalContentAlignment="Stretch">
+                <Button Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                        Foreground="{ThemeResource SystemControlForegroundChromeWhiteBrush}"
+                        BorderThickness="0"
+                        Style="{ThemeResource FluentDialogButtonStandardStyle}"
+                        Command="{x:Bind OneMoreCommand}">
+                    <Button.Content>
+                        <Grid MinWidth="128"
+                              MinHeight="32"
+                              RequestedTheme="Dark">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="&#xE149;"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Padding="0,0,12,0"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1"
+                                       Text="Create another appointment"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="2"
+                                       Text="C"
+                                       VerticalAlignment="Center"
+                                       Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                       Style="{ThemeResource FluentCaptionTextStyle}"/>
+                        </Grid>
+                    </Button.Content>
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="None"
                                          Key="C" />
-                </Button.KeyboardAccelerators>
-                <ToolTipService.ToolTip>
-                    <ToolTip Visibility="Collapsed" />
-                </ToolTipService.ToolTip>
-            </Button>
+                    </Button.KeyboardAccelerators>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Visibility="Collapsed" />
+                    </ToolTipService.ToolTip>
+                </Button>
+            </ctkc:DropShadowPanel>
+
 
             <!-- Cancel button -->
-            <Button Margin="0,0,0,8"
-                    Style="{ThemeResource FluentDialogButtonStandardStyle}"
-                    Command="{x:Bind CancelCommand}">
-                <Button.Content>
-                    <Grid MinWidth="128"
-                          MinHeight="32">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0"
-                                   Text="&#xE129;"
-                                   FontFamily="Segoe MDL2 Assets"
-                                   Style="{ThemeResource SubtitleTextBlockStyle}"
-                                   Padding="0,0,12,0"
-                                   VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="I'm done"
-                                   VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="2"
-                                   Text="F"
-                                   VerticalAlignment="Center"
-                                   Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
-                                   Style="{ThemeResource FluentCaptionTextStyle}"/>
-                    </Grid>
-                </Button.Content>
-                <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Modifiers="None"
+            <ctkc:DropShadowPanel Canvas.ZIndex="10"
+                                  Margin="0,0,0,8"
+                                  BlurRadius="10.0"
+                                  ShadowOpacity="0.30"
+                                  Color="Black"
+                                  OffsetX="4"
+                                  OffsetY="4"
+                                  HorizontalAlignment="Stretch"
+                                  HorizontalContentAlignment="Stretch">
+                <Button Margin="0,0,0,8"
+                        Background="{ThemeResource SystemControlAcrylicElementBrush}"
+                        Style="{ThemeResource FluentDialogButtonStandardStyle}"
+                        Command="{x:Bind CancelCommand}">
+                    <Button.Content>
+                        <Grid MinWidth="128"
+                              MinHeight="32">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="&#xE129;"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Padding="0,0,12,0"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1"
+                                       Text="I'm done"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="2"
+                                       Text="F"
+                                       VerticalAlignment="Center"
+                                       Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                       Style="{ThemeResource FluentCaptionTextStyle}"/>
+                        </Grid>
+                    </Button.Content>
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="None"
                                          Key="F" />
-                </Button.KeyboardAccelerators>
-                <ToolTipService.ToolTip>
-                    <ToolTip Visibility="Collapsed" />
-                </ToolTipService.ToolTip>
-            </Button>
+                    </Button.KeyboardAccelerators>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Visibility="Collapsed" />
+                    </ToolTipService.ToolTip>
+                </Button>
+            </ctkc:DropShadowPanel>
+
 
         </StackPanel>
 

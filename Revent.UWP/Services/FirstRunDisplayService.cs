@@ -16,8 +16,7 @@ namespace Revent.UWP.Services
             if (SystemInformation.IsFirstRun && !shown)
             {
                 shown = true;
-                var dialog = new FirstRunDialog();
-                await dialog.ShowAsync();
+                NavigationService.Navigate(typeof(Views.FirstRunPage));
             }
         }
     }

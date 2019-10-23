@@ -5,13 +5,14 @@
     xmlns:local="using:Revent.UWP.Views.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctkc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
 
     Background="{ThemeResource SystemControlAcrylicElementBrush}"
     BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
     CornerRadius="{StaticResource FluentDialogCorners}">
 
-    <Grid>
+    <Grid Margin="8">
         <Grid.BackgroundTransition>
             <BrushTransition />
         </Grid.BackgroundTransition>
@@ -242,63 +243,81 @@
                     Padding="0,8,0,0">
 
                 <!-- Save button -->
-                <Button Padding="12,6"
-                        Margin="0,0,4,0"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
-                        RequestedTheme="Dark"
-                        CornerRadius="{StaticResource FluentButtonCorners}"
-                        Command="{x:Bind SaveCommand}"
-                        Style="{ThemeResource FluentButtonAccentStyle}">
-                    <Button.Content>
-                        <StackPanel MinWidth="128"
-                                    MinHeight="32"
-                                    Orientation="Horizontal">
-                            <TextBlock Text="&#xE105;"
-                                       FontFamily="Segoe MDL2 Assets"
-                                       Style="{ThemeResource SubtitleTextBlockStyle}"
-                                       VerticalAlignment="Center"
-                                       Padding="0,0,12,0"/>
-                            <TextBlock x:Uid="Unsaved_SaveText"
-                                       Text="Save"
-                                       VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button.Content>
-                    <Button.KeyboardAccelerators>
-                        <KeyboardAccelerator Modifiers="Control"
-                                             Key="S" />
-                    </Button.KeyboardAccelerators>
-                </Button>
+                <ctkc:DropShadowPanel Canvas.ZIndex="10"
+                                      Margin="0,0,4,0"
+                                      BlurRadius="10.0"
+                                      ShadowOpacity="0.30"
+                                      Color="Black"
+                                      OffsetX="4"
+                                      OffsetY="4">
+                    <Button Padding="12,6"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="{ThemeResource SystemControlBackgroundAccentBrush}"                        
+                            CornerRadius="{StaticResource FluentButtonCorners}"
+                            Command="{x:Bind SaveCommand}"
+                            Style="{ThemeResource FluentButtonAccentStyle}">
+                        <Button.Content>
+                            <StackPanel MinWidth="128"
+                                        MinHeight="32"
+                                        Orientation="Horizontal"
+                                        RequestedTheme="Dark">
+                                <TextBlock Text="&#xE105;"
+                                           FontFamily="Segoe MDL2 Assets"
+                                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                                           VerticalAlignment="Center"
+                                           Padding="0,0,12,0"/>
+                                <TextBlock x:Uid="Unsaved_SaveText"
+                                           Text="Save"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                        <Button.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control"
+                                                 Key="S" />
+                        </Button.KeyboardAccelerators>
+                    </Button>
+                </ctkc:DropShadowPanel>
+
 
                 <!-- Cancel button -->
-                <Button Padding="12,6"
-                        Margin="4,0,0,0"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        Background="Transparent"
-                        CornerRadius="{StaticResource FluentButtonCorners}"
-                        Command="{x:Bind CloseDialogCommand}"
-                        Style="{ThemeResource FluentButtonStandardStyle}">
-                    <Button.Content>
-                        <StackPanel MinWidth="128"
-                                    MinHeight="32"
-                                    Orientation="Horizontal">
-                            <TextBlock Text="&#xE10A;"
-                                       FontFamily="Segoe MDL2 Assets"
-                                       Style="{ThemeResource SubtitleTextBlockStyle}"
-                                       Padding="0,0,12,0"
-                                       VerticalAlignment="Center"/>
-                            <TextBlock x:Uid="ExitConfirmation-No"
-                                       Text="Cancel"
-                                       VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button.Content>
-                    <Button.KeyboardAccelerators>
-                        <KeyboardAccelerator Modifiers="None"
-                                             Key="Escape" />
-                    </Button.KeyboardAccelerators>
-                </Button>
+                <ctkc:DropShadowPanel Canvas.ZIndex="10"
+                                      Margin="4,0,0,0"
+                                      BlurRadius="10.0"
+                                      ShadowOpacity="0.30"
+                                      Color="Black"
+                                      OffsetX="4"
+                                      OffsetY="4"
+                                      Background="{ThemeResource ButtonBackgroundThemeBrush}">
+                    <Button Padding="12,6"
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="{ThemeResource SystemControlAcrylicElementBrush}"
+                            CornerRadius="{StaticResource FluentButtonCorners}"
+                            Command="{x:Bind CloseDialogCommand}"
+                            Style="{ThemeResource FluentButtonStandardStyle}">
+                        <Button.Content>
+                            <StackPanel MinWidth="128"
+                                        MinHeight="32"
+                                        Orientation="Horizontal">
+                                <TextBlock Text="&#xE10A;"
+                                           FontFamily="Segoe MDL2 Assets"
+                                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                                           Padding="0,0,12,0"
+                                           VerticalAlignment="Center"/>
+                                <TextBlock x:Uid="ExitConfirmation-No"
+                                           Text="Cancel"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                        <Button.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="None"
+                                                 Key="Escape" />
+                        </Button.KeyboardAccelerators>
+                    </Button>
+                </ctkc:DropShadowPanel>
+
 
             </StackPanel>
 
