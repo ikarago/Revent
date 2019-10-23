@@ -72,8 +72,8 @@ namespace Revent.UWP
 
         private void SetSettings()
         {
-            const string infoOnTiles = "infoOnTiles";
-            const string askForAnother = "askForAnother";
+            const string infoOnTiles = "MoreInfoOnTiles";
+            const string askForAnother = "AskForAnother";
 
             // Set the local settings
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;

@@ -61,7 +61,7 @@
 
                     <!-- Extra info Live Tile -->
                     <StackPanel Margin="{StaticResource DialogSubcategoryMargin}"
-                                Visibility="Collapsed">
+                                Visibility="Visible">
                         <TextBlock Text="Show extra info on Live Tile"
                                    Style="{ThemeResource BodyTextBlockStyle}"/>
                         <ToggleSwitch IsOn="{x:Bind ViewModel.MoreInfoOnTiles, Mode=TwoWay}"
