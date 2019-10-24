@@ -17,8 +17,11 @@ namespace Revent.UWP.Services
             if (SystemInformation.IsAppUpdated && !shown)
             {
                 shown = true;
-                var dialog = new WhatsNewDialog();
-                await dialog.ShowAsync();
+                // #TEMP, show FirstRunPage instead
+                NavigationService.Navigate(typeof(Views.FirstRunPage));
+
+                //var dialog = new WhatsNewDialog();
+                //await dialog.ShowAsync();
             }
         }
     }

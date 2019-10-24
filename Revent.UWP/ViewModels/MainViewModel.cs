@@ -851,8 +851,12 @@ namespace Revent.UWP.ViewModels
             if (appLicense.IsTrial)
             {
                 StorePurchaseResult purchaseResult = await productResult.Product.RequestPurchaseAsync();
-
-                // TODO: Do something with the result, like show a message
+                if (purchaseResult.Status == StorePurchaseStatus.Succeeded)
+                {
+                    // Show Gratitude message
+                    ThanksForPurchasingDialog dialog = new ThanksForPurchasingDialog();
+                    await dialog.ShowAsync();
+                }
 
                 await GetLicense();
             }

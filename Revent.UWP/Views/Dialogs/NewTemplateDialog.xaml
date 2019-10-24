@@ -180,6 +180,7 @@
                              PlaceholderText="30"
                              Text="{x:Bind ViewModel.Template.AppointmentDuration, Mode=TwoWay}"
                              HorizontalAlignment="Stretch"
+                             InputScope="Number"
                              MaxLength="3"
                              Height="32"/>
 

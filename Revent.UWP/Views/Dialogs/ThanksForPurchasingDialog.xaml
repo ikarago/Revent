@@ -1,0 +1,44 @@
+﻿<ContentDialog
+    x:Class="Revent.UWP.Views.Dialogs.ThanksForPurchasingDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Revent.UWP.Views.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+    Background="{ThemeResource SystemControlAcrylicElementBrush}"
+    BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+    CornerRadius="{StaticResource FluentDialogCorners}"
+
+    Title="Thank you!"
+    
+    PrimaryButtonText="Close"    
+    PrimaryButtonStyle="{ThemeResource FluentButtonStandardStyle}"
+    
+    mc:Ignorable="d"
+    d:DesignHeight="345"
+    d:DesignWidth="550">
+    <ContentDialog.TitleTemplate>
+        <DataTemplate x:DataType="x:String">
+            <TextBlock Text="Thank you!"
+                       Style="{ThemeResource FluentSubheaderTextStyle}" />
+        </DataTemplate>
+    </ContentDialog.TitleTemplate>
+    <ScrollViewer>
+        <StackPanel>
+            <TextBlock
+                Text="Thank you so much for supporting me. Enjoy the app! :)"
+                TextWrapping="WrapWholeWords" />
+            <!-- Dialog background icon -->
+            <!--<FontIcon Grid.Row="1"
+                      Canvas.ZIndex="5"
+                      Visibility="Visible"
+                      Glyph="&#xE719;"
+                      FontSize="72"
+                      Margin="0,48,0,0"
+                      Foreground="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom"/>-->
+        </StackPanel>
+    </ScrollViewer>
+</ContentDialog>

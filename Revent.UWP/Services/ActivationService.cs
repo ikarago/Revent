@@ -160,7 +160,7 @@ namespace Revent.UWP.Services
 
         private void SetMinimalWindowSize()
         {
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Windows.Foundation.Size(360, 300));
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Windows.Foundation.Size(400, 300));
         }
     }
 }

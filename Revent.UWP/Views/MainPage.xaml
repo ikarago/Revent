@@ -111,13 +111,13 @@
                              Color="Black"
                              OffsetX="4"
                              OffsetY="4"
-                             HorizontalContentAlignment="Stretch">
+                             HorizontalContentAlignment="Stretch"
+                             Visibility="{x:Bind ViewModel.UiShowPurchaseButton, Mode=OneWay}">
             <Button Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                     CornerRadius="0"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Visibility="{x:Bind ViewModel.UiShowPurchaseButton}"
                     Command="{x:Bind ViewModel.PurchaseAppCommand}">
                 <Button.Content>
                     <Grid>
@@ -372,7 +372,7 @@
                                       Label="Purchase the app"
                                       LabelPosition="Collapsed"
                                       ToolTipService.ToolTip="Purchase the app"
-                                      Visibility="{x:Bind ViewModel.UiShowPurchaseButton}"
+                                      Visibility="{x:Bind ViewModel.UiShowPurchaseButton, Mode=OneWay}"
                                       Command="{x:Bind ViewModel.PurchaseAppCommand}"/>
                     </CommandBar.PrimaryCommands>
                     <CommandBar.SecondaryCommands>
