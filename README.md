@@ -6,7 +6,11 @@ A tool to easily create multiple appointments with repeating details. This is a 
 Please keep in mind that this is a complete rework of the classic app. So new core, new code, everything. This to make sure this new version will stand the test of time. :)
 
 ## Get the app
-**For purists**: you can build and tinker with the project yourself.
+**The easy way**: You can purchase the app from the Microsoft Store [here](	https://www.microsoft.com/store/apps/9NBLGGH51FCN). This way you can support my work as well. 
+
+A free trial with no limitations is available there as well, it just shows a banner that you're running the trial version. ;)
+
+**The hard way**: You can build and tinker with the project yourself.
 
 
 ## Supported Windows versions
@@ -21,6 +25,12 @@ Please keep in mind that this is a complete rework of the classic app. So new co
 * Windows 10 Holographic ✔
 * Windows 10 Mobile ❌
 * Windows 10 Xbox ❌
+
+## Screenshots
+
+![1](.github/Assets/MainPage-Dark.jpg)
+![2](.github/Assets/MainPage-Light.jpg)
+
 
 ## Support me
 **Like this project?** [Buy me a coffee](https://paypal.me/ikarago)
