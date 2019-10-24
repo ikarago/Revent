@@ -11,8 +11,10 @@ using Revent.UWP.Helpers;
 using Revent.UWP.Services;
 using Revent.UWP.Views.Dialogs;
 using Windows.ApplicationModel.Appointments;
+using Windows.Services.Store;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.UI.StartScreen;
 
@@ -42,7 +44,6 @@ namespace Revent.UWP.ViewModels
             set { Set(ref _selectedTemplate, value); }
         }
 
-
         // UI Properties
         private bool _uiShowImportLoading;
         public bool UiShowImportLoading
@@ -58,6 +59,14 @@ namespace Revent.UWP.ViewModels
             set { Set(ref _uiShowImportSuccessful, value); }
         }
 
+        // Store Properties
+        private StoreContext storeContext = null;
+        private bool _uiShowPurchaseButton;
+        public bool UiShowPurchaseButton
+        {
+            get { return _uiShowPurchaseButton; }
+            set { Set(ref _uiShowPurchaseButton, value); }
+        }
 
 
 
@@ -77,7 +86,7 @@ namespace Revent.UWP.ViewModels
             }
         }
         // Initialize
-        private void Initialize()
+        private async void Initialize()
         {
             // Set an empty list to populate with the Templates
             // If we don't do this and the method of getting the templates fails, the app is guaranteed to do boom
@@ -91,7 +100,13 @@ namespace Revent.UWP.ViewModels
 
             // Set UI elements
             UiShowImportLoading = false;
+            UiShowPurchaseButton = true;
+
+            // Get Store License info
+            storeContext = StoreContext.GetDefault();
+            await GetLicense();
         }
+
 
         private async void OpenTemplateFromSecondaryTileAsync()
         {
@@ -236,6 +251,23 @@ namespace Revent.UWP.ViewModels
                         });
                 }
                 return _unpinTemplateToStartCommand;
+            }
+        }
+
+        private ICommand _purchaseAppCommand;
+        public ICommand PurchaseAppCommand
+        {
+            get
+            {
+                if(_purchaseAppCommand == null)
+                {
+                    _purchaseAppCommand = new RelayCommand(
+                        () =>
+                        {
+                            PurchaseLicense();
+                        });
+                }
+                return _purchaseAppCommand;
             }
         }
 
@@ -778,6 +810,54 @@ namespace Revent.UWP.ViewModels
                 }
             }
         }
+
+
+        // Store Stuff
+        private async Task GetLicense()
+        {
+            StoreAppLicense license = await storeContext.GetAppLicenseAsync();
+            if (license.IsActive)
+            {
+                if (license.IsTrial)
+                {
+                    UiShowPurchaseButton = true;
+                }
+                else
+                {
+                    UiShowPurchaseButton = false;
+                }
+            }
+            else
+            {
+                UiShowPurchaseButton = true;
+            }
+        }
+
+        private void PurchaseApp()
+        {
+            PurchaseLicense();
+        }
+
+        private async void PurchaseLicense()
+        {
+            StoreProductResult productResult = await storeContext.GetStoreProductForCurrentAppAsync();
+            if (productResult.ExtendedError != null)
+            {
+                // An error has occurred
+                return;
+            }
+
+            StoreAppLicense appLicense = await storeContext.GetAppLicenseAsync();
+            if (appLicense.IsTrial)
+            {
+                StorePurchaseResult purchaseResult = await productResult.Product.RequestPurchaseAsync();
+
+                // TODO: Do something with the result, like show a message
+
+                await GetLicense();
+            }
+        }
+
 
         /// <summary>
         /// Opens the Settings Dialog

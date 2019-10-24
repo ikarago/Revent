@@ -41,16 +41,21 @@
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="88"/>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- Top -->
         <ctk:DropShadowPanel x:Name="gridCmbar"
-                                  Grid.Row="0"
-                                  Canvas.ZIndex="75"
-                                  ShadowOpacity="0.6"
-                                  HorizontalAlignment="Stretch"
-                                  HorizontalContentAlignment="Stretch">
+                             Grid.Row="0"
+                             Canvas.ZIndex="75"
+                             BlurRadius="10.0"
+                             ShadowOpacity="0.30"
+                             Color="Black"
+                             OffsetX="4"
+                             OffsetY="4"
+                             HorizontalAlignment="Stretch"
+                             HorizontalContentAlignment="Stretch">
             <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32" />
@@ -98,8 +103,55 @@
         </ctk:DropShadowPanel>
         <!-- END OF TOP BAR -->
 
+        <!-- Trial bar -->
+        <ctk:DropShadowPanel Grid.Row="1"
+                             Canvas.ZIndex="50"
+                             BlurRadius="10.0"
+                             ShadowOpacity="0.30"
+                             Color="Black"
+                             OffsetX="4"
+                             OffsetY="4"
+                             HorizontalContentAlignment="Stretch">
+            <Button Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                    CornerRadius="0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Visibility="{x:Bind ViewModel.UiShowPurchaseButton}"
+                    Command="{x:Bind ViewModel.PurchaseAppCommand}">
+                <Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Grid.Column="0"
+                                  Glyph="&#xE719;"
+                                  RequestedTheme="Dark"/>
+
+                        <TextBlock Grid.Column="1"
+                                   Text="You're running the trial version. Support the developer by purchasing the app! :)"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Left"
+                                   RequestedTheme="Dark"
+                                   Margin="12,0"/>
+                    </Grid>
+
+                </Button.Content>
+            </Button>
+            <!--<Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                  Height="40"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+                <Button Content="You're running the trial version. Support the dev by purchasing a license!"
+                        RequestedTheme="Dark"
+                        Background="Transparent"/>
+            </Grid>-->
+        </ctk:DropShadowPanel>
+
         <!-- Main content -->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.BackgroundTransition>
                 <BrushTransition />
             </Grid.BackgroundTransition>
@@ -292,10 +344,12 @@
                                       Foreground="{ThemeResource SystemControlForegroundChromeWhiteBrush}"
                                       FontWeight="SemiBold"
                                       CornerRadius="2,0,0,2"
+                                      ToolTipService.ToolTip="New template"
                                       Command="{x:Bind ViewModel.NewTemplateCommand}"/>
                         <AppBarButton Icon="Import"
                                       Label="Import"
                                       LabelPosition="Collapsed"
+                                      ToolTipService.ToolTip="Import"
                                       Command="{x:Bind ViewModel.ImportTemplateCommand}">
                             <!--<AppBarButton.Flyout>
                                 <MenuFlyout>
@@ -314,6 +368,12 @@
                                 </MenuFlyout>
                             </AppBarButton.Flyout>-->
                         </AppBarButton>
+                        <AppBarButton Icon="Shop"
+                                      Label="Purchase the app"
+                                      LabelPosition="Collapsed"
+                                      ToolTipService.ToolTip="Purchase the app"
+                                      Visibility="{x:Bind ViewModel.UiShowPurchaseButton}"
+                                      Command="{x:Bind ViewModel.PurchaseAppCommand}"/>
                     </CommandBar.PrimaryCommands>
                     <CommandBar.SecondaryCommands>
                         <AppBarButton Icon="Setting"
