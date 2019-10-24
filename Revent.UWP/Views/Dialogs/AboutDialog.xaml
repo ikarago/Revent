@@ -124,7 +124,11 @@
                                      Content="Windows Community Toolkit"
                                      NavigateUri="https://github.com/windows-toolkit/WindowsCommunityToolkit"/>
 
-                    <!-- FluBase -->
+                    <!-- WinUI -->
+                    <HyperlinkButton Content="Windows UI Library"
+                                     NavigateUri="https://github.com/Microsoft/microsoft-ui-xaml"/>
+
+                    <!-- FLUI Framework -->
                     <HyperlinkButton x:Uid="About_AcknowledgementsFlui"
                                      Content="FLUI Framework"
                                      NavigateUri="https://github.com/Team-FLUI/FluiFramework"/>
@@ -145,7 +149,8 @@
 
                     <!-- Privacy Policy -->
                     <HyperlinkButton x:Uid="About_PrivacyTermsLink"
-                                     Content="Privacy Policy"/>
+                                     Content="Privacy Policy"
+                                     NavigateUri="https://www.ikarago.com/privacy-policy/"/>
                     <!-- Feedback Hub link-->
                     <!--<HyperlinkButton x:Uid="FeedbackHub_Link"
                                      Content="Feedback"
@@ -153,7 +158,8 @@
                                      Visibility="{x:Bind ViewModel.FeedbackLinkVisibility}"/>-->
                     <!-- GitHub Project -->
                     <HyperlinkButton x:Uid="About_GitHubLink"
-                                     Content="GitHub project"/>
+                                     Content="GitHub project"
+                                     NavigateUri="https://github.com/ikarago/Revent"/>
                 </StackPanel>
             </StackPanel>
 
