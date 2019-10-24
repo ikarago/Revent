@@ -12,7 +12,7 @@
   <Identity
     Name="21834MacaroniSoft.Revent"
     Publisher="CN=A709FCE2-98A6-4948-A3F2-B538AFE341F1"
-    Version="2.0.0.0" />
+    Version="2.0.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="162e225a-2ead-477a-b9ab-0af0748e6fdd" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
