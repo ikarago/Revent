@@ -89,7 +89,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
-                                       Text="&#xE149;"
+                                       Text="&#xE109;"
                                        FontFamily="Segoe MDL2 Assets"
                                        Style="{ThemeResource SubtitleTextBlockStyle}"
                                        Padding="0,0,12,0"
@@ -138,7 +138,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
-                                       Text="&#xE129;"
+                                       Text="&#xE081;"
                                        FontFamily="Segoe MDL2 Assets"
                                        Style="{ThemeResource SubtitleTextBlockStyle}"
                                        Padding="0,0,12,0"
