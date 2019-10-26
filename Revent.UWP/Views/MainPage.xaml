@@ -156,6 +156,7 @@
                 <BrushTransition />
             </Grid.BackgroundTransition>
 
+            <Image Opacity=".1" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Assets/Logo/NewLogo_1_Final5_cut.png" Stretch="Uniform" MaxWidth="100"/>
             <!-- ListView -->
             <ListView x:Name="lvItemTemplates"
                       Canvas.ZIndex="10"
